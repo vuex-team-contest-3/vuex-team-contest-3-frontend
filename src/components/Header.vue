@@ -4,9 +4,7 @@
 			<nav class="w-full flex items-center justify-between py-5">
 				<div>
 					<a href="#" class="flex items-center">
-						<h1 class="text-[24px] w-[100px] text-[#DEDEDE] font-bold">
-							Logo +
-						</h1>
+						<h1 class="text-[24px] w-[100px] text-[#DEDEDE] font-bold">Logo</h1>
 					</a>
 				</div>
 				<div class="hidden lg:block">
