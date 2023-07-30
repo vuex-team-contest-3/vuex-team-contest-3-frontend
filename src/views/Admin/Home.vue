@@ -1,0 +1,42 @@
+<script setup></script>
+
+<template>
+	<div class="text-white dark:text-black">
+		<div class="grid lg:grid-cols-4 md:grid-cols-2 gap-5">
+			<div
+				class="bg-yellow-400 h-24 rounded-lg flex items-center justify-between px-5">
+				<div class="block">
+					<h4 class="text-2xl font-bold">Users</h4>
+					<h3 class="text-3xl">20</h3>
+				</div>
+				<i class="text-6xl bx bx-user"></i>
+			</div>
+			<div
+				class="bg-green-400 h-24 rounded-lg flex items-center justify-between px-5">
+				<div class="block">
+					<h4 class="text-2xl font-bold">Clinics</h4>
+					<h3 class="text-3xl">13</h3>
+				</div>
+				<i class="text-6xl bx bx-location-plus"></i>
+			</div>
+			<div
+				class="bg-purple-400 h-24 rounded-lg flex items-center justify-between px-5">
+				<div class="block">
+					<h4 class="text-2xl font-bold">Doctors</h4>
+					<h3 class="text-3xl">7</h3>
+				</div>
+				<i class="text-6xl bx bxs-capsule"></i>
+			</div>
+			<div
+				class="bg-gray-400 h-24 rounded-lg flex items-center justify-between px-5">
+				<div class="block">
+					<h4 class="text-2xl font-bold">Admins</h4>
+					<h3 class="text-3xl">1</h3>
+				</div>
+				<i class="text-6xl bx bx-user-pin"></i>
+			</div>
+		</div>
+	</div>
+</template>
+
+<style scoped></style>
