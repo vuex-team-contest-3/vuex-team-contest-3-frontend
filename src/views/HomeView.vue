@@ -1,9 +1,13 @@
 <script setup></script>
 
 <template>
-  <main>
-    <Container>
-      <h1 class="text-red-700">Hello World</h1>
-    </Container>
+  <Header />
+  <main class="min-h-screen bg-[#202020]">
+    <section class="">
+      <Container>
+
+      </Container>
+    </section>
   </main>
+  <Footer />
 </template>
