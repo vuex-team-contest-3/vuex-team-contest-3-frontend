@@ -3,7 +3,6 @@ import { defineStore } from "pinia";
 
 export const useMode = defineStore("counter", () => {
 	const mode = ref(JSON.parse(localStorage.getItem("mode")));
-	console.log(mode.value);
 
 	const changeMode = () => {
 		if (mode.value == true) {
