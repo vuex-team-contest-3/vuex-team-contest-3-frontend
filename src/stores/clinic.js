@@ -3,12 +3,7 @@ import { defineStore } from "pinia";
 
 export const useClinic = defineStore("clinic", () => {
 	const store = reactive({
-		data: [
-			{ name: "salom1", address: "123", phone: "123" },
-			{ name: "salom1", address: "123", phone: "123" },
-			{ name: "salom2", address: "123", phone: "123" },
-			{ name: "salom2", address: "123", phone: "123" },
-		],
+		data: [],
 		load: false,
 	});
 

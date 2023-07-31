@@ -2,6 +2,7 @@
 import { useClinic } from "@/stores/clinic";
 import { ref, reactive } from "vue";
 const { isUser, data } = defineProps(["isUser", "data"]);
+console.log(data);
 
 const updateId = ref(null);
 const updatedData = reactive({
@@ -40,30 +41,21 @@ const updateClinic = () => {
 				alt="" />
 			<div class="flex items-center mb-1">
 				<HeartMedIcon />
-				<input
-					class="px-1 text-xl border border-transparent ml-1 bg-transparent w-full outline-none"
-					:class="updateId ? ' border-zinc-600 rounded-md' : 'cursor-pointer'"
-					:readonly="!updateId"
-					:value="updatedData.name"
-					:v-model="updatedData.name" />
+				<span class="text-xl ml-1 bg-transparent outline-none">
+					{{ data.name }}</span
+				>
 			</div>
 			<div class="flex items-center mb-1">
 				<LocationIcon />
-				<input
-					class="px-1 text-sm border border-transparent ml-1 bg-transparent w-full outline-none"
-					:class="updateId ? ' border-zinc-600 rounded-md' : 'cursor-pointer'"
-					:readonly="!updateId"
-					:value="updatedData.address"
-					:v-model="updatedData.address" />
+				<span class="text-sm ml-1 bg-transparent outline-none">
+					{{ data.address }}</span
+				>
 			</div>
 			<div class="flex items-center mb-1">
 				<PhoneIcon />
-				<input
-					class="px-1 text-sm border border-transparent ml-1 bg-transparent w-full outline-none"
-					:class="updateId ? ' border-zinc-600 rounded-md' : 'cursor-pointer'"
-					:readonly="!updateId"
-					:value="updatedData.phone"
-					:v-model="updatedData.phone" />
+				<span class="text-sm ml-1 bg-transparent outline-none">
+					{{ data.phone }}</span
+				>
 			</div>
 			<div v-if="isUser == 1" class="flex items-center justify-between pt-2">
 				<div class="flex items-center justify-between gap-2">
