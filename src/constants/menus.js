@@ -1,16 +1,16 @@
 export const menus = [
 	{
-		name: "Dashboard",
+		name: "Bosh sahifa",
 		icon: `bx bxs-dashboard`,
 		path: "/admin",
 	},
 	{
-		name: "Clinics",
+		name: "Klinikalar",
 		icon: `bx bx-location-plus`,
 		path: "/admin/clinics",
 	},
 	{
-		name: "Settings",
+		name: "Sozlamalar",
 		icon: `bx bx-cog`,
 		path: "/admin/settings",
 	},

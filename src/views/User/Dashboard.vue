@@ -7,9 +7,11 @@ const mode = useMode();
 <template>
 	<div :class="mode.mode ? 'dark' : ''">
 		<Header />
-		<main class="min-h-screen dark:bg-[#202020] bg-white">
+		<main class="pt-20 min-h-screen dark:bg-[#202020] bg-white">
 			<section class="">
-				<Container> </Container>
+				<Container>
+					<router-view></router-view>
+				</Container>
 			</section>
 		</main>
 		<Footer />
