@@ -8,7 +8,7 @@ const mode = useMode();
 <template>
 	<div>
 		<aside
-			class="flex flex-col duration-300 lg:w-64 w-20 h-screen px-4 py-8 overflow-y-auto bg-white border-r dark:bg-zinc-950 dark:border-gray-700 shadow-2xl group absolute">
+			class="flex flex-col duration-300 lg:w-64 w-20 h-screen px-4 py-8 overflow-y-auto bg-white border-r dark:bg-zinc-950 dark:border-zinc-700 shadow-2xl group absolute">
 			<a
 				href="/admin"
 				class="pl-1 mx-auto flex items-center justify-start w-full gap-2 text-white">
@@ -22,7 +22,7 @@ const mode = useMode();
 				<nav>
 					<router-link
 						v-for="el in menus"
-						class="flex items-center px-3 py-2 mb-3 text-gray-700 bg-gray-100 rounded-lg dark:bg-gray-800 dark:text-gray-200"
+						class="flex items-center px-3 py-2 mb-3 text-zinc-700 bg-zinc-100 rounded-lg dark:bg-zinc-800 dark:text-zinc-200"
 						:to="el.path">
 						<i class="text-2xl" :class="el.icon"></i>
 						<span class="hidden lg:block mx-3 text-md font-medium">
@@ -31,7 +31,7 @@ const mode = useMode();
 					</router-link>
 					<button
 						@click="mode.changeMode"
-						class="flex items-center w-full px-3 py-2 mb-3 text-gray-700 bg-gray-100 rounded-lg dark:bg-gray-800 dark:text-gray-200">
+						class="flex items-center w-full px-3 py-2 mb-3 text-zinc-700 bg-zinc-100 rounded-lg dark:bg-zinc-800 dark:text-zinc-200">
 						<i
 							class="text-2xl"
 							:class="mode.mode ? 'bx bx-sun' : 'bx bx-moon'"></i>
@@ -45,4 +45,8 @@ const mode = useMode();
 	</div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.router-link-exact-active{
+	background: #555;
+}
+</style>

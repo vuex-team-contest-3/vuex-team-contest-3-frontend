@@ -19,9 +19,9 @@ const router = createRouter({
 					component: () => import("../views/User/Clinics.vue"),
 				},
 				{
-					path: "/clinics/id",
+					path: "/clinics/:id",
 					name: "Clinic",
-					component: () => import("../views/User/Clinic.vue"),
+					component: () => import("../views/User/Clinics.vue"),
 				},
 			],
 		},
@@ -32,13 +32,18 @@ const router = createRouter({
 			children: [
 				{
 					path: "/admin",
-					name: "AdminDashboard",
+					name: "Dashboard",
 					component: () => import("../views/Admin/Home.vue"),
 				},
 				{
 					path: "/admin/clinics",
-					name: "AdminClinics",
+					name: "Admin Clinics",
 					component: () => import("../views/Admin/Clinics.vue"),
+				},
+				{
+					path: "/admin/clinics/:id",
+					name: "One Clinic",
+					component: () => import("../views/Admin/Clinic.vue"),
 				},
 			],
 		},

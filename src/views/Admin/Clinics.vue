@@ -51,7 +51,8 @@ const addNewClinic = () => {
 					(page.currentPage - 1) * page.itemsPerPage + page.itemsPerPage
 				)"
 				:data="el"
-				isUser="0" />
+				isUser="0"
+				:router="`/admin/clinics/${el.id}`" />
 			<LoadingCards v-else v-for="el in 4" />
 		</div>
 
