@@ -2,24 +2,28 @@
 import { useClinic } from "@/stores/clinic";
 import { ref, reactive } from "vue";
 const { isUser, data } = defineProps(["isUser", "data"]);
-console.log(data);
 
 const updateId = ref(null);
-const updatedData = reactive({
-	name: data.name,
-	address: data.address,
-	img: data.img,
-	phone: data.phone,
-});
-console.log(updatedData);
+let updatedData = reactive({ ...data });
 const clinic_store = useClinic();
 
+const resetFormClinic = () => {
+	updatedData = { ...data };
+	updateId.value = null;
+};
+
 const updateClinic = () => {
-	clinic_store.UPDATE_CLINIC(updateId.value);
+	clinic_store.UPDATE_CLINIC(updateId.value, updatedData);
+	resetFormClinic()
 };
 </script>
 
 <template>
+	<ClinicForm
+		:clinicModal="updateId"
+		:clinic="updatedData"
+		:clinicFunc="updateClinic"
+		:resetFormClinic="resetFormClinic" />
 	<div>
 		<div
 			class="rounded-xl border border-zinc-700 hover:border-zinc-500 bg-zinc-950 hover:bg-zinc-900 text-center dark:text-white p-5 cursor-pointer hover:shadow-xl duration-300 relative">
@@ -30,10 +34,6 @@ const updateClinic = () => {
 				v-if="isUser == 0 && !updateId"
 				@click="() => (updateId = data.id)"
 				class="text-lg bg-green-500 px-2 p-1 absolute bx bx-pencil -top-2 -left-2 rounded-full"></i>
-			<i
-				v-if="isUser == 0 && updateId"
-				@click="() => (updateId = null)"
-				class="text-lg bg-blue-500 px-2 p-1 absolute bx bx-check -top-2 -left-2 rounded-full"></i>
 
 			<img
 				src="@/assets/logo.png"

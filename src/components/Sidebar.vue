@@ -8,7 +8,7 @@ const mode = useMode();
 <template>
 	<div>
 		<aside
-			class="flex flex-col duration-300 lg:w-64 sm:w-20 h-screen px-4 py-8 overflow-y-auto bg-white border-r dark:bg-zinc-950 dark:border-gray-700 shadow-2xl group absolute">
+			class="flex flex-col duration-300 lg:w-64 w-20 h-screen px-4 py-8 overflow-y-auto bg-white border-r dark:bg-zinc-950 dark:border-gray-700 shadow-2xl group absolute">
 			<a
 				href="/admin"
 				class="pl-1 mx-auto flex items-center justify-start w-full gap-2 text-white">
