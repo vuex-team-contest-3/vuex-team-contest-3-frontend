@@ -6,8 +6,8 @@ export const useClinic = defineStore("clinic", () => {
 		data: [
 			{
 				id: 1690788022057,
-				name: "Shoxmed",
-				address: "Uchtepa 12-daha",
+				name: "Najot Talim",
+				address: "Chilonzor",
 				phone: "8870380006",
 			},
 			{
