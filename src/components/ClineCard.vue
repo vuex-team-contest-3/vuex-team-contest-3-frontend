@@ -3,6 +3,7 @@ import { useClinic } from "@/stores/clinic";
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 const { isUser, data, router } = defineProps(["isUser", "data", "router"]);
+import { onMounted } from "vue";
 
 const realRouter = useRouter();
 const updateId = ref(null);
@@ -27,6 +28,10 @@ const deleteClinic = () => {
 	resetFormClinic();
 	realRouter.push("/admin/clinics");
 };
+
+onMounted(() => {
+	AOS.init();
+});
 </script>
 
 <template>
@@ -43,6 +48,7 @@ const deleteClinic = () => {
 		:resetFormClinic="resetFormClinic" />
 	<div>
 		<div
+			data-aos="fade-right"
 			class="rounded-xl block border border-zinc-700 hover:border-zinc-500 bg-zinc-950 hover:bg-zinc-900 text-center text-white p-5 cursor-pointer hover:shadow-xl duration-300 relative group">
 			<i
 				v-if="isUser == 0"

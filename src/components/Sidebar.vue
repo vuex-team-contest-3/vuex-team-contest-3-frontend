@@ -46,7 +46,7 @@ const mode = useMode();
 </template>
 
 <style scoped>
-.router-link-exact-active{
+.router-link-exact-active {
 	background: #555;
 }
 </style>

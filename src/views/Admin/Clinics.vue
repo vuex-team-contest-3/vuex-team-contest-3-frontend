@@ -2,6 +2,7 @@
 import { ref, reactive } from "vue";
 import { useClinic } from "@/stores/clinic";
 import LoadingCards from "../../components/LoadingCards.vue";
+import { onMounted } from "vue";
 
 const clinic_store = useClinic();
 const page = reactive({
@@ -26,6 +27,10 @@ const addNewClinic = () => {
 	clinic_store.ADD_CLINIC({ id: Date.now(), ...newClinic });
 	resetFormClinic();
 };
+
+onMounted(() => {
+	AOS.init();
+});
 </script>
 
 <template>
@@ -38,6 +43,7 @@ const addNewClinic = () => {
 	<div>
 		<div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
 			<div
+				data-aos="fade-right"
 				@click="resetFormClinic"
 				class="rounded-xl border border-zinc-600 bg-zinc-950 text-center dark:text-white p-5 cursor-pointer hover:shadow-xl">
 				<i
