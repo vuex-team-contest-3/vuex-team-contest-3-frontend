@@ -2,10 +2,31 @@
 
 <template>
 	<div>
+		<div class="mb-5 flex items-center justify-between w-full">
+			<div class="">
+				<button
+					class="bg-zinc-700 flex items-center gap-2 justify-center p-2 px-5 rounded-lg text-zinc-300 border border-zinc-500">
+					<i class="bx bx-plus text-lg"></i>
+					<span>Yangi xizmat qo'shish</span>
+				</button>
+			</div>
+			<div class="relative w-[30%]">
+				<div
+					class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+					<i class="bx bx-search text-zinc-400 text-xl"></i>
+				</div>
+				<input
+					autocomplete="off"
+					type="search"
+					id="default-search"
+					class="block outline-none w-full p-3 pl-10 text-sm border rounded-lg bg-zinc-700 border-zinc-600 placeholder-zinc-400 text-white"
+					placeholder="Qidirish..."
+					required />
+			</div>
+		</div>
 		<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-			<table class="w-full text-sm text-left text-zinc-500 dark:text-zinc-400">
-				<thead
-					class="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-700 dark:text-zinc-400">
+			<table class="w-full text-sm text-left text-zinc-400">
+				<thead class="text-xs uppercase bg-zinc-700 text-zinc-400">
 					<tr>
 						<th scope="col" class="px-6 py-3">Xizmat nomi</th>
 						<th scope="col" class="px-6 py-3">Xizmat tashxislari</th>
@@ -13,20 +34,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr
-						v-for="el in 5"
-						class="bg-white border-b dark:bg-zinc-800 dark:border-zinc-700">
+					<tr v-for="el in 5" class="border-b bg-zinc-800 border-zinc-700">
 						<th
 							scope="row"
-							class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-white">
+							class="px-6 py-4 font-medium whitespace-nowrap text-white">
 							Stamatolog
 						</th>
 						<td class="px-6 py-4 flex">
-							<div class="flex items-center gap-2 border pl-2 rounded-lg">
+							<div
+								class="flex items-center gap-2 border border-blue-500 pl-2 rounded-lg p-1">
 								<span
 									class=""
 									v-for="el in [`Tish og'rig'i`, 'Mulk yemirilishi', 'Kares']">
-									{{ el }}
+									{{ el }},
 								</span>
 								<button
 									class="bg-blue-500 text-white flex items-center justify-center p-1 px-2 rounded-lg">
@@ -35,8 +55,12 @@
 							</div>
 						</td>
 						<td class="px-6 py-4">
-							<i
-								class="bg-red-500 text-white p-1 px-2 rounded-full cursor-pointer bx bx-trash text-xl"></i>
+							<div class="flex items-center gap-2">
+								<i
+									class="bg-red-500 text-white p-1 px-2 rounded-full cursor-pointer bx bx-trash text-xl"></i>
+								<i
+									class="bg-green-500 text-white p-1 px-2 rounded-full cursor-pointer bx bx-pencil text-xl"></i>
+							</div>
 						</td>
 					</tr>
 				</tbody>

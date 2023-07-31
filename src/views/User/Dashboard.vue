@@ -1,16 +1,12 @@
-<script setup>
-import { useMode } from "@/stores/mode";
-
-const mode = useMode();
-</script>
+<script setup></script>
 
 <template>
-	<div :class="mode.mode ? 'dark' : ''">
+	<div>
 		<Header />
 		<main class="pt-20 min-h-screen dark:bg-[#202020] bg-white">
-			<section class="">
+			<section>
 				<Container>
-					<router-view></router-view>
+					<RouterView />
 				</Container>
 			</section>
 		</main>

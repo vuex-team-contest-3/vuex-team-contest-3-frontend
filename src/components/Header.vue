@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import Button from "../components/Button.vue";
 
-const menu = ref(false);
+const menu = ref(true);
 const toggleMenu = () => (menu.value = !menu.value);
 
 const links = [

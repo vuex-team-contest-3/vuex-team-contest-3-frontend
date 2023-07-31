@@ -61,13 +61,13 @@ onMounted(() => {
 			<router-link :to="router" class="block">
 				<img
 					src="@/assets/logo.png"
-					class="mb-5 h-32 w-32 mx-auto bg-zinc-900 border border-zinc-700 group-hover:border-zinc-500 duration-300 rounded-full"
+					class="mb-5 h-32 w-32 mx-auto bg-zinc-900 border border-zinc-700 group-hover:border-zinc-400 duration-300 rounded-full"
 					alt="" />
 				<div class="flex items-center mb-1">
 					<HeartMedIcon />
-					<span class="text-xl ml-1 bg-transparent outline-none">
-						{{ data.name }}</span
-					>
+					<span class="font-medium text-xl ml-1 bg-transparent outline-none">
+						{{ data.name }}
+					</span>
 				</div>
 				<div class="flex items-center mb-1">
 					<LocationIcon />
