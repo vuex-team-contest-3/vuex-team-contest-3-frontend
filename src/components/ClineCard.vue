@@ -48,8 +48,8 @@ onMounted(() => {
 		:resetFormClinic="resetFormClinic" />
 	<div>
 		<div
-			data-aos="fade-right"
-			class="rounded-xl block border border-zinc-700 hover:border-zinc-500 bg-zinc-950 hover:bg-zinc-900 text-center text-white p-5 cursor-pointer hover:shadow-xl duration-300 relative group">
+			data-aos="flip-right"
+			class="rounded-xl block border border-zinc-700 hover:border-zinc-600 bg-zinc-950 hover:bg-zinc-900 text-center text-white p-5 cursor-pointer hover:shadow-xl duration-300 relative group">
 			<i
 				v-if="isUser == 0"
 				@click="() => (deleteId = data.id)"
@@ -61,7 +61,7 @@ onMounted(() => {
 			<router-link :to="router" class="block">
 				<img
 					src="@/assets/logo.png"
-					class="mb-5 h-32 w-32 mx-auto bg-zinc-900 border border-zinc-700 group-hover:border-zinc-400 duration-300 rounded-full"
+					class="mb-5 h-32 w-32 mx-auto bg-zinc-900 border border-zinc-700 group-hover:border-zinc-600 duration-300 rounded-full"
 					alt="" />
 				<div class="flex items-center mb-1">
 					<HeartMedIcon />

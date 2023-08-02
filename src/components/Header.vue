@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import Button from "../components/Button.vue";
 
 const menu = ref(true);
@@ -23,10 +23,14 @@ const links = [
 		path: "/contact",
 	},
 ];
+onMounted(() => {
+	AOS.init();
+});
 </script>
 
 <template>
 	<header
+		data-aos="fade-down"
 		class="z-50 h-20 fixed w-full bg-zinc-950 border-b border-zinc-700 shadow-2xl">
 		<Container>
 			<nav class="w-full flex items-center justify-between py-2.5">
@@ -38,12 +42,14 @@ const links = [
 						</span>
 					</a>
 				</div>
-				<div class="hidden lg:flex items-center justify-between gap-7">
+				<div class="hidden lg:flex items-center justify-between gap-5">
 					<router-link
 						v-for="el in links"
 						:to="el.path"
-						class="border-b-2 border-transparent hover:border-white duration-300 font-bold pb-2 text-zinc-300 hover:text-white">
-						{{ el.name }}
+						class="duration-300 group font-bold px-3 text-zinc-300 hover:text-white">
+						<span>{{ el.name }}</span>
+						<div
+							class="text-white group-hover:w-full duration-300 mt-1 bg-white h-[3px] w-14 rounded-full bottom"></div>
 					</router-link>
 				</div>
 				<div class="hidden lg:block">
@@ -86,7 +92,9 @@ const links = [
 
 <style lang="scss" scoped>
 .router-link-exact-active {
-	border-bottom: 2px solid white;
 	color: white;
+}
+.router-link-exact-active .bottom {
+	width: 100%;
 }
 </style>
