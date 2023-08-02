@@ -1,82 +1,100 @@
+<script setup>
+import { ref, onMounted } from "vue";
+import Button from "../components/Button.vue";
+
+const menu = ref(true);
+const toggleMenu = () => (menu.value = !menu.value);
+
+const links = [
+	{
+		name: "Bosh sahifa",
+		path: "/",
+	},
+	{
+		name: "Klinikalar",
+		path: "/clinics",
+	},
+	{
+		name: "Biz haqimizda",
+		path: "/about",
+	},
+	{
+		name: "Bog'lanish",
+		path: "/contact",
+	},
+];
+onMounted(() => {
+	AOS.init();
+});
+</script>
+
 <template>
-	<header class="bg-[#323232]">
+	<header
+		data-aos="fade-down"
+		class="z-50 h-20 fixed w-full bg-zinc-950 border-b border-zinc-700 shadow-2xl">
 		<Container>
-			<nav class="w-full flex items-center justify-between py-5">
+			<nav class="w-full flex items-center justify-between py-2.5">
 				<div>
-					<a href="#" class="flex items-center">
-						<h1 class="text-[24px] w-[100px] text-[#DEDEDE] font-bold">Logo</h1>
+					<a href="/" class="flex items-center">
+						<img src="@/assets/logo.png" class="h-14" alt="" />
+						<span class="text-[24px] w-[100px] text-[#DEDEDE] font-bold">
+							ClineApp
+						</span>
 					</a>
 				</div>
+				<div class="hidden lg:flex items-center justify-between gap-5">
+					<router-link
+						v-for="el in links"
+						:to="el.path"
+						class="duration-300 group font-bold px-3 text-zinc-300 hover:text-white">
+						<span>{{ el.name }}</span>
+						<div
+							class="text-white group-hover:w-full duration-300 mt-1 bg-white h-[3px] w-14 rounded-full bottom"></div>
+					</router-link>
+				</div>
 				<div class="hidden lg:block">
-					<ul class="flex items-center gap-8 text-[16px] text-white font-bold">
-						<li class="hidden p-2 text-[#DEDEDE] hover:text-white">
-							<a href="#home">Shifokorlar</a>
-						</li>
-						<li class="hidden p-2 text-[#DEDEDE] hover:text-white">
-							<a href="#social">Xizmatlar</a>
-						</li>
-						<li class="hidden p-2 text-[#DEDEDE] hover:text-white">
-							<a href="#project">Narxlar</a>
-						</li>
-						<li :class="lamp ? 'hidden' : ''">
-							<button
-								class="text-white p-2 duration-200 rounded-lg hover:text-[#bbbbbb]">
-								<router-link to="/login">Kirish</router-link>
-							</button>
-						</li>
-						<li :class="lamp ? 'hidden' : ''">
-							<button
-								class="text-white duration-200 border-white border-2 p-2 rounded-lg hover:border-[#bbbbbb] hover:text-[#bbbbbb]">
-								<router-link to="/registration">Ro'yxatdan o'tish</router-link>
-							</button>
-						</li>
-					</ul>
+					<div class="flex items-center gap-8 text-[16px] text-white font-bold">
+						<router-link to="/login">
+							<Button name="Login"> </Button>
+						</router-link>
+					</div>
 				</div>
 				<div class="lg:hidden reletive">
 					<button
 						@click="toggleMenu"
 						class="flex p-1 rounded-lg focus:ring-2 focus:ring-[#3B3B98]">
-						<i
-							class="text-[24px] text-white font-bold"
-							:class="menu ? 'bx bx-x' : 'bx bx-menu'"></i>
+						<i class="text-[24px] text-white font-bold bx bx-menu"></i>
 					</button>
-					<ul
-						class="absolute bg-[#A7C5BD] w-[60%] sm:w-[40%] h-[100vh] right-0 top-[76px] text-white font-bold text-[18px]"
-						:class="menu ? 'bloc' : 'hidden'">
-						<li class="mb-5 mt-5 pl-5" :class="lamp ? 'hidden' : ''">
-							<button
-								class="bg-white text-[#3B3B98] border-2 border-white p-2 rounded-lg hover:border-[#3B3B98]">
-								<router-link to="/login">Log in</router-link>
-							</button>
-						</li>
-						<li class="mb-5 pl-5" :class="lamp ? 'hidden' : ''">
-							<button
-								class="bg-[#3B3B98] border-2 border-[#3B3B98] p-2 rounded-lg hover:border-white">
-								<router-link to="/registration">Registration</router-link>
-							</button>
-						</li>
-						<li class="p-2 pl-5 text-[#E2E8F0] hover:text-white mb-5">
-							<a href="#home" @click="closeMenu">Home</a>
-						</li>
-						<li class="p-2 pl-5 text-[#E2E8F0] hover:text-white mb-5">
-							<a href="#social" @click="closeMenu">Socials</a>
-						</li>
-						<li class="p-2 pl-5 text-[#E2E8F0] hover:text-white mb-5">
-							<a href="#project" @click="closeMenu">Projects</a>
-						</li>
-						<li class="p-2 pl-5 text-[#E2E8F0] hover:text-white mb-5">
-							<a href="#price" @click="closeMenu">Prices</a>
-						</li>
-						<li class="p-2 pl-5 text-[#E2E8F0] hover:text-white">
-							<a href="#staff" @click="closeMenu">Staffs</a>
-						</li>
-					</ul>
+					<div
+						class="absolute w-64 top-0 duration-300 bg-zinc-900 p-5 h-screen"
+						:class="menu ? '-right-96' : 'right-0'">
+						<h3
+							class="block mb-5 border-b-2 border-transparent duration-300 font-bold pb-2 text-xl text-white">
+							MENU
+						</h3>
+						<router-link
+							v-for="el in links"
+							:to="el.path"
+							class="block mb-5 border-b-2 border-transparent hover:border-white duration-300 font-bold pb-2 text-zinc-300 hover:text-white">
+							{{ el.name }}
+						</router-link>
+						<button
+							@click="toggleMenu"
+							class="absolute top-5 -left-10 bg-zinc-800 flex p-1 rounded-lg focus:ring-2 focus:ring-[#3B3B98]">
+							<i class="text-[24px] text-white font-bold bx bx-x"></i>
+						</button>
+					</div>
 				</div>
 			</nav>
 		</Container>
 	</header>
 </template>
 
-<script setup></script>
-
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.router-link-exact-active {
+	color: white;
+}
+.router-link-exact-active .bottom {
+	width: 100%;
+}
+</style>

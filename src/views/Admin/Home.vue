@@ -1,9 +1,16 @@
-<script setup></script>
+<script setup>
+import { onMounted } from "vue";
+
+onMounted(() => {
+	AOS.init();
+});
+</script>
 
 <template>
 	<div class="text-white dark:text-black">
 		<div class="grid lg:grid-cols-4 md:grid-cols-2 gap-5">
 			<div
+				data-aos="flip-right"
 				class="bg-yellow-400 h-24 rounded-lg flex items-center justify-between px-5">
 				<div class="block">
 					<h4 class="text-2xl font-bold">Users</h4>
@@ -12,6 +19,7 @@
 				<i class="text-6xl bx bx-user"></i>
 			</div>
 			<div
+				data-aos="flip-right"
 				class="bg-green-400 h-24 rounded-lg flex items-center justify-between px-5">
 				<div class="block">
 					<h4 class="text-2xl font-bold">Clinics</h4>
@@ -20,6 +28,7 @@
 				<i class="text-6xl bx bx-location-plus"></i>
 			</div>
 			<div
+				data-aos="flip-right"
 				class="bg-purple-400 h-24 rounded-lg flex items-center justify-between px-5">
 				<div class="block">
 					<h4 class="text-2xl font-bold">Doctors</h4>
@@ -28,6 +37,7 @@
 				<i class="text-6xl bx bxs-capsule"></i>
 			</div>
 			<div
+				data-aos="flip-right"
 				class="bg-gray-400 h-24 rounded-lg flex items-center justify-between px-5">
 				<div class="block">
 					<h4 class="text-2xl font-bold">Admins</h4>
