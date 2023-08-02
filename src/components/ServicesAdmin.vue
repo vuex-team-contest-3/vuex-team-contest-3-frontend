@@ -1,6 +1,41 @@
-<script setup></script>
+<script setup>
+import { ref, reactive } from "vue";
+
+
+const serviceModal = ref(false);
+const diagnosisModal = ref(null);
+const changeDiagnosisModal = () => (diagnosisModal.value = null);
+const changeModal = () => (serviceModal.value = !serviceModal.value);
+
+const service = reactive({
+	name: "",
+	price: "",
+});
+
+const diagnosis = ref([]);
+
+const resetForm = () => {
+	service.name = "";
+	service.price = "";
+	service.diagnosis = [];
+	changeModal();
+};
+</script>
 
 <template>
+	<ServiceAdminForm
+		:serviceModal="serviceModal"
+		:service="service"
+		:serviceFunc="serviceFunc"
+		:resetForm="changeDiagnosisModal"
+		isAdd="1" />
+	<DiagnosisForm
+		:diagnosisModal="diagnosisModal"
+		:diagnosis="diagnosis"
+		:diagnosisFunc="diagnosisFunc"
+		:resetForm="resetForm"
+		isAdd="1" />
+
 	<div>
 		<div class="mb-5 flex items-center justify-between w-full">
 			<div class="">
@@ -49,6 +84,7 @@
 									{{ el }},
 								</span>
 								<button
+									@click="() => (diagnosisModal = el?.id)"
 									class="bg-blue-500 text-white flex items-center justify-center p-1 px-2 rounded-lg">
 									<i class="bx bx-plus text-lg"></i>
 								</button>

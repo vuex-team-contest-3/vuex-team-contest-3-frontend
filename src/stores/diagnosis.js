@@ -1,20 +1,16 @@
 import { reactive, ref, computed } from "vue";
 import { defineStore } from "pinia";
 
-export const useService = defineStore("service", () => {
+export const useDiagnosis = defineStore("diagnosis", () => {
 	const store = reactive({
 		data: [
 			{
 				id: 1690788022057,
-				name: "Stomotolog",
-				price: "12000",
-				clinic_id: 1690788022057,
+				name: "Tish o'g'rig'i",
 			},
 			{
 				id: 1690788022059,
-				name: "Lor",
-				price: "40000",
-				clinic_id: 1690788022057,
+				name: "Plomba",
 			},
 		],
 		load: false,

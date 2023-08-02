@@ -28,7 +28,7 @@ const { clinicModal, clinic, clinicFunc, resetFormClinic, isAdd } = defineProps(
 							<label
 								for="image"
 								class="flex items-center justify-center h-44 w-44 bg-zinc-950 rounded-full mx-auto cursor-pointer border border-zinc-700">
-								<img v-if="clinic.img" src="@/assets/logo.png" alt="" />
+								<img v-if="clinic?.img" src="@/assets/logo.png" alt="" />
 								<i v-else class="text-7xl text-white bx bx-upload"></i>
 							</label>
 							<input
