@@ -1,6 +1,8 @@
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
+import { useDiagnosis } from "../stores/diagnosis";
 
+const diagnosis_store = useDiagnosis();
 const serviceModal = ref(false);
 const diagnosisModal = ref(null);
 const changeDiagnosisModal = () => (diagnosisModal.value = null);
@@ -18,6 +20,10 @@ const resetForm = () => {
 	service.price = "";
 	changeModal();
 };
+
+onMounted(async () => {
+	diagnosis.value = diagnosis_store.DIAGNOSIS;
+});
 </script>
 
 <template>
@@ -31,10 +37,11 @@ const resetForm = () => {
 		:diagnosisModal="diagnosisModal"
 		:diagnosis="diagnosis"
 		:diagnosisFunc="diagnosisFunc"
-		:resetForm="resetForm"
+		:resetForm="changeDiagnosisModal"
 		isAdd="1" />
-
 	<div>
+		{{ diagnosisModal }}
+
 		<div class="mb-5 flex items-center justify-between w-full">
 			<div class="">
 				<button
@@ -83,8 +90,8 @@ const resetForm = () => {
 									{{ el }},
 								</span>
 								<button
-									@click="() => (diagnosisModal = el?.id)"
-									class="bg-blue-500 text-white flex items-center justify-center p-1 px-2 rounded-lg">
+									@click="() => (diagnosisModal = el.id)"
+									class="outline-none bg-blue-500 text-white flex items-center justify-center p-1 px-2 rounded-lg">
 									<i class="bx bx-plus text-lg"></i>
 								</button>
 							</div>

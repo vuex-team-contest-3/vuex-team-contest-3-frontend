@@ -6,53 +6,71 @@ const router = createRouter({
 		{
 			path: "/",
 			name: "User",
-			component: () => import("../views/User/Dashboard.vue"),
+			component: () => import("@/views/User/Dashboard.vue"),
 			children: [
 				{
 					path: "/",
 					name: "Home",
-					component: () => import("../views/User/Home.vue"),
+					component: () => import("@/views/User/Home.vue"),
+					beforeEnter: (to, from) => {
+						return false;
+					},
 				},
 				{
 					path: "/clinics",
 					name: "Clinics",
-					component: () => import("../views/User/Clinics.vue"),
+					component: () => import("@/views/User/Clinics.vue"),
 				},
 				{
 					path: "/about",
 					name: "About",
-					component: () => import("../views/User/About.vue"),
+					component: () => import("@/views/User/About.vue"),
 				},
 			],
 		},
 		{
 			path: "/admin",
 			name: "Admin",
-			component: () => import("../views/Admin/Dashboard.vue"),
+			component: () => import("@/views/Admin/Dashboard.vue"),
 			children: [
 				{
 					path: "/admin",
 					name: "Dashboard",
-					component: () => import("../views/Admin/Home.vue"),
+					component: () => import("@/views/Admin/Home.vue"),
 				},
 				{
 					path: "/admin/clinics",
 					name: "Admin Clinics",
-					component: () => import("../views/Admin/Clinics.vue"),
+					component: () => import("@/views/Admin/Clinics.vue"),
 				},
 				{
 					path: "/admin/clinics/:id",
 					name: "One Clinic",
-					component: () => import("../views/Admin/Clinic.vue"),
+					component: () => import("@/views/Admin/Clinic.vue"),
 				},
 				{
 					path: "/admin/settings",
 					name: "Settings",
-					component: () => import("../views/Admin/Settings.vue"),
+					component: () => import("@/views/Admin/Settings.vue"),
 				},
 			],
 		},
+		{
+			path: "/:pathMatch(.*)*",
+			name: "Error",
+			component: () => import("@/views/Error.vue"),
+		},
 	],
 });
+
+// router.beforeEach((to, from, next) => {
+// 	if (to.name != "Login" && !localStorage.getItem("token")) {
+// 		next("/login");
+// 	} else if (to.name == "Login" && localStorage.getItem("token")) {
+// 		next("/");
+// 	} else {
+// 		next();
+// 	}
+// });
 
 export default router;

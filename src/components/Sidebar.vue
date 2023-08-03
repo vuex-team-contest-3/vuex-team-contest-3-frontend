@@ -29,7 +29,7 @@ const mode = useMode();
 							{{ el.name }}
 						</span>
 					</router-link>
-					<button
+					<!-- <button
 						@click="mode.changeMode"
 						class="flex items-center w-full px-3 py-2 mb-3 text-zinc-700 bg-zinc-100 rounded-lg dark:bg-zinc-800 dark:text-zinc-200">
 						<i
@@ -38,7 +38,7 @@ const mode = useMode();
 						<span class="hidden lg:block mx-3 text-md font-medium">
 							{{ mode.mode ? "Light" : "Dark" }}
 						</span>
-					</button>
+					</button> -->
 				</nav>
 			</div>
 		</aside>
