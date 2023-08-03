@@ -1,7 +1,6 @@
 <script setup>
 import { ref, reactive } from "vue";
 
-
 const serviceModal = ref(false);
 const diagnosisModal = ref(null);
 const changeDiagnosisModal = () => (diagnosisModal.value = null);
@@ -17,7 +16,6 @@ const diagnosis = ref([]);
 const resetForm = () => {
 	service.name = "";
 	service.price = "";
-	service.diagnosis = [];
 	changeModal();
 };
 </script>
@@ -27,7 +25,7 @@ const resetForm = () => {
 		:serviceModal="serviceModal"
 		:service="service"
 		:serviceFunc="serviceFunc"
-		:resetForm="changeDiagnosisModal"
+		:resetForm="resetForm"
 		isAdd="1" />
 	<DiagnosisForm
 		:diagnosisModal="diagnosisModal"
@@ -40,6 +38,7 @@ const resetForm = () => {
 		<div class="mb-5 flex items-center justify-between w-full">
 			<div class="">
 				<button
+					@click="changeModal"
 					class="bg-zinc-700 flex items-center gap-2 justify-center p-2 px-5 rounded-lg text-zinc-300 border border-zinc-500">
 					<i class="bx bx-plus text-lg"></i>
 					<span>Yangi xizmat qo'shish</span>

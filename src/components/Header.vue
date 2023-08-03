@@ -49,7 +49,7 @@ onMounted(() => {
 						class="duration-300 group font-bold px-3 text-zinc-300 hover:text-white">
 						<span>{{ el.name }}</span>
 						<div
-							class="text-white group-hover:w-full duration-300 mt-1 bg-white h-[3px] w-14 rounded-full bottom"></div>
+							class="text-white group-hover:w-full duration-300 mt-1 bg-white h-[3px] w-10 rounded-full bottom"></div>
 					</router-link>
 				</div>
 				<div class="hidden lg:block">
@@ -66,7 +66,7 @@ onMounted(() => {
 						<i class="text-[24px] text-white font-bold bx bx-menu"></i>
 					</button>
 					<div
-						class="absolute w-64 top-0 duration-300 bg-zinc-900 p-5 h-screen"
+						class="absolute w-64 top-0 duration-300 pr-20 bg-zinc-900 p-5 h-screen"
 						:class="menu ? '-right-96' : 'right-0'">
 						<h3
 							class="block mb-5 border-b-2 border-transparent duration-300 font-bold pb-2 text-xl text-white">
@@ -75,8 +75,10 @@ onMounted(() => {
 						<router-link
 							v-for="el in links"
 							:to="el.path"
-							class="block mb-5 border-b-2 border-transparent hover:border-white duration-300 font-bold pb-2 text-zinc-300 hover:text-white">
-							{{ el.name }}
+							class="duration-300 group font-bold px-3 text-zinc-300 hover:text-white">
+							<span>{{ el.name }}</span>
+							<div
+								class="text-white group-hover:w-full duration-300 mt-1 bg-white h-[3px] w-10 rounded-full my-5 bottom"></div>
 						</router-link>
 						<button
 							@click="toggleMenu"
@@ -96,5 +98,6 @@ onMounted(() => {
 }
 .router-link-exact-active .bottom {
 	width: 100%;
+	background: white;
 }
 </style>
