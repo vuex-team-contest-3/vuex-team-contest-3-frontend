@@ -1,5 +1,5 @@
 <script setup>
-const { data } = defineProps(["data"]);
+const { data, updateAll } = defineProps(["data", "updateAll"]);
 import { ref, reactive, onMounted } from "vue";
 import { toast } from "vue3-toastify";
 import { useRouter } from "vue-router";
@@ -8,10 +8,7 @@ import { useDiagnosis } from "@/stores/diagnosis";
 import { useService } from "@/stores/service";
 import { useClinic } from "@/stores/clinic";
 
-const page = reactive({
-	currentPage: 1,
-	itemsPerPage: 3,
-});
+const page = reactive({ currentPage: 1, itemsPerPage: 3 });
 
 const router = useRouter();
 
@@ -31,11 +28,7 @@ const changeModal = () => (serviceModal.value = !serviceModal.value);
 const deleteId = ref(null);
 const changeDelete = () => (deleteId.value = null);
 
-const service = reactive({
-	name: "",
-	price: "",
-	clinic_id: data.id,
-});
+const service = reactive({ name: "", price: "", clinic_id: data.id });
 
 let updateService = reactive({});
 
@@ -50,10 +43,9 @@ const resetForm = () => {
 const addService = async () => {
 	try {
 		await service_store.ADD(service);
-		data.service.push(service);
 		resetForm();
 		toast.success("Xizmat qo'shildi", { autoClose: 1000, theme: "dark" });
-		router.push(`/admin/clinics/${data.id}`);
+		updateAll();
 	} catch (error) {
 		console.log(error);
 		toast.success("Formani to'g'ri to'ldiring", {
@@ -72,12 +64,11 @@ const editService = async () => {
 	try {
 		const updatedIdCpy = serviceUpdateModal.value;
 		serviceUpdateModal.value = null;
-		data.service = await service_store.UPDATE(updatedIdCpy, {
-			...updateService,
-		});
+		await service_store.UPDATE(updatedIdCpy, { ...updateService });
 		resetServiceForm();
 
 		toast.success("Xizmat o'zgartirildi", { autoClose: 1000, theme: "dark" });
+		updateAll();
 	} catch (error) {
 		console.log(error);
 		toast.success("Formani to'g'ri to'ldiring", {
@@ -96,7 +87,7 @@ const deleteClinic = async () => {
 			autoClose: 1000,
 			theme: "dark",
 		});
-		router.push(`/admin/clinics/${data.id}`);
+		updateAll();
 	} catch (error) {
 		console.log(error);
 		toast.error("Xatolik", {

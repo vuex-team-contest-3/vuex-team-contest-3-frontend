@@ -1,19 +1,20 @@
 <script setup>
-import { ref, reactive, onMounted } from "vue";
-import { useDiagnosis } from "@/stores/diagnosis";
-import { useService } from "@/stores/service";
-const { data } = defineProps(["data"]);
+const { data, updateAll } = defineProps(["data", "updateAll"]);
+import { ref, reactive } from "vue";
+import { toast } from "vue3-toastify";
+
+import { useDoctor } from "../stores/doctor";
 
 const page = reactive({
 	currentPage: 1,
 	itemsPerPage: 3,
 });
 
-const diagnosis_store = useDiagnosis();
-const serviceModal = ref(false);
-const diagnosisModal = ref(null);
-const changeDiagnosisModal = () => (diagnosisModal.value = null);
-const changeModal = () => (serviceModal.value = !serviceModal.value);
+const doctor_store = useDoctor();
+
+// DELETE
+const deleteId = ref(null);
+const changeDelete = () => (deleteId.value = null);
 
 const service = reactive({
 	name: "",
@@ -30,12 +31,32 @@ const resetForm = () => {
 
 const addService = () => {};
 
-onMounted(async () => {
-	diagnosis.value = diagnosis_store.DIAGNOSIS;
-});
+const deleteClinic = async () => {
+	try {
+		const deletedIdCpy = deleteId.value;
+		changeDelete();
+		await doctor_store.DELETE(deletedIdCpy);
+		toast.success("Xizmat muvaffaqiyatli o'chirildi", {
+			autoClose: 1000,
+			theme: "dark",
+		});
+		updateAll();
+	} catch (error) {
+		console.log(error);
+		toast.error("Xatolik", {
+			autoClose: 1000,
+			theme: "dark",
+		});
+	}
+};
 </script>
 
 <template>
+	<DeleteModal
+		:isDelete="deleteId"
+		:changeDelete="changeDelete"
+		:deleteFunc="deleteClinic" />
+
 	<ServiceAdminForm
 		:serviceModal="serviceModal"
 		:service="service"
@@ -73,7 +94,7 @@ onMounted(async () => {
 			</div>
 		</div>
 		<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-			<div class="grid grid-cols-3 gap-5">
+			<div class="grid lg:grid-cols-3 md:grid-cols-2 gap-5">
 				<div
 					v-for="el in data.doctor.slice(
 						(page.currentPage - 1) * page.itemsPerPage,
@@ -82,9 +103,9 @@ onMounted(async () => {
 					class="bg-zinc-800 border border-zinc-600 rounded-lg p-3 space-y-1">
 					<img
 						:src="
-							el.image
-								? `https://nest-clinic.onrender.com/api/image/${el.image}`
-								: '@/assets/logo.png'
+							el.image_name
+								? `https://nest-clinic.onrender.com/api/image/${el.image_name}`
+								: `../assets/logo.png`
 						"
 						class="mb-5 object-cover h-32 w-32 border border-zinc-600 mx-auto bg-zinc-950 rounded-full"
 						alt="" />
