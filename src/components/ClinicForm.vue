@@ -1,26 +1,11 @@
 <script setup>
-const { clinicModal, clinic, clinicFunc, resetFormClinic, formData, isAdd } =
-	defineProps([
-		"clinicModal",
-		"clinic",
-		"clinicFunc",
-		"resetFormClinic",
-		"formData",
-		"isAdd",
-	]);
+const { clinicModal, clinic, clinicFunc, resetFormClinic, isAdd } = defineProps(
+	["clinicModal", "clinic", "clinicFunc", "resetFormClinic", "isAdd"]
+);
 
 const onChange = (e) => {
 	clinic.image = e.target.files[0];
 	clinic.imageURL = URL.createObjectURL(e.target.files[0]);
-};
-
-const addPhoto = (e) => {
-	console.log(e.target.files);
-	formData.append("image", e.raw);
-};
-
-const removePhoto = () => {
-	formData.delete("image");
 };
 </script>
 
@@ -56,14 +41,12 @@ const removePhoto = () => {
 								<i v-else class="text-7xl text-white bx bx-upload"></i>
 							</label>
 							<input
-								@change="addPhoto"
-								@remove="removePhoto"
+								@change="onChange"
 								ref="upload"
 								type="file"
 								accept="image/*"
 								id="image"
 								class="hidden"
-								placeholder="Shoxmed	"
 								required="" />
 							<h3 class="text-xs text-center mt-5 font-medium text-red-500">
 								Xajmi: 1MB dan oshmasin
