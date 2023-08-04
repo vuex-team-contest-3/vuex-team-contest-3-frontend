@@ -11,8 +11,6 @@ const page = reactive({
 });
 const addClinicModal = ref(false);
 
-const formData = new FormData();
-
 const newClinic = reactive({
 	name: "",
 	address: "",
@@ -28,12 +26,13 @@ const resetFormClinic = () => {
 
 const addNewClinic = async () => {
 	try {
-		formData.append("", data.position);
-		formData.append("company", data.company);
-		formData.append("date_from", data.date_from);
-		formData.append("date_to", data.date_to);
-
-		console.log(formData);
+		const formData = new FormData();
+		formData.append("name", newClinic.name);
+		formData.append("address", newClinic.address);
+		formData.append("phone", newClinic.phone);
+		if (newClinic.image) {
+			formData.append("image", newClinic.image);
+		}
 		await clinic_store.ADD_CLINIC(formData);
 		resetFormClinic();
 		toast.success("Klinika muvaffaqiyatli qo'shildi", {
@@ -61,7 +60,6 @@ onMounted(async () => {
 		:clinic="newClinic"
 		:clinicFunc="addNewClinic"
 		:resetFormClinic="resetFormClinic"
-		:formData="formData"
 		isAdd="1" />
 	<div>
 		<div
