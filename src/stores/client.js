@@ -1,27 +1,29 @@
 import { reactive, ref, computed } from "vue";
 import { defineStore } from "pinia";
-import { useClinics } from "../service/clinic";
+import { useClients } from "../service/client";
 
-export const useClinic = defineStore("clinic", () => {
+export const useClient = defineStore("client", () => {
 	const store = reactive({
 		data: [],
 		load: true,
 	});
 
-	const GET_CLINIC = async () => {
-		store.data = (await useClinics.GET()).data;
+	const GET_CLIENT = async () => {
+		store.data = (await useClients.GET()).data;
 		store.load = false;
+		console.log(store.data);
 	};
 
 	const GET_ONE = (id) => {
 		return store.data.filter((i) => i.id == id)[0];
 	};
 
-	const ADD_CLINIC = (data) => {
+	const ADD_CLIENT = (data) => {
+		console.log(data);
 		store.data.push(data);
 	};
 
-	const UPDATE_CLINIC = (id, data) => {
+	const UPDATE_CLIENT = (id, data) => {
 		for (const i in store.data) {
 			if (store.data[i].id == id) {
 				store.data[i] = data;
@@ -29,20 +31,20 @@ export const useClinic = defineStore("clinic", () => {
 		}
 	};
 
-	const DELETE_CLINIC = (id) => {
+	const DELETE_CLIENT = (id) => {
 		store.data = store.data.filter((i) => i.id != id);
 	};
 
-	const CLINICS = computed(() => store.data);
+	const CLIENTS = computed(() => store.data);
 	const LOAD = computed(() => store.load);
 
 	return {
-		CLINICS,
+		CLIENTS,
 		LOAD,
-		GET_CLINIC,
-		ADD_CLINIC,
-		UPDATE_CLINIC,
+		GET_CLIENT,
+		ADD_CLIENT,
+		UPDATE_CLIENT,
 		GET_ONE,
-		DELETE_CLINIC,
+		DELETE_CLIENT,
 	};
 });

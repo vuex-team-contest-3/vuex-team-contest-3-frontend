@@ -1,9 +1,40 @@
 <script setup>
+import { ref, reactive } from "vue";
+import { useUser } from "@/stores/user";
+import { useRouter } from "vue-router";
+import { toast } from "vue3-toastify";
 
+const user_store = useUser();
+const router = useRouter();
+
+const user = reactive({
+	first_name: "",
+	last_name: "",
+	age: "",
+	phone: "",
+});
+
+const register = async () => {
+	try {
+		const data = await user_store.REGISTER_USER(user);
+		// localStorage.setItem("token", data.token);
+		// router.push("/");
+		toast.success("Muvaffaqiyatli ro'yxatdan o'tdingiz", {
+			autoClose: 1000,
+			theme: "light",
+		});
+	} catch (error) {
+		console.log(error);
+		toast.error("Formani to'g'ri to'ldiring", {
+			autoClose: 1000,
+			theme: "light",
+		});
+	}
+};
 </script>
 
 <template>
-	<div class="py-10 flex items-center justify-center">
+	<div class="py-20 flex items-center justify-center">
 		<div
 			class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-xl xl:p-0 dark:bg-zinc-800 dark:border-zinc-700">
 			<div class="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -11,7 +42,10 @@
 					class="text-xl font-bold leading-tight tracking-tight text-zinc-900 md:text-2xl text-center dark:text-white">
 					Bemor ro'yxatdan o'tish
 				</h1>
-				<form class="space-y-4 md:space-y-6" action="#">
+				<form
+					@submit.prevent="register"
+					class="space-y-4 md:space-y-6"
+					action="#">
 					<div class="flex items-center gap-5">
 						<div class="w-full">
 							<label
@@ -23,7 +57,8 @@
 								type="text"
 								class="outline-none bg-zinc-50 border border-zinc-300 text-zinc-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 								placeholder="Toshmat"
-								required="" />
+								required=""
+								v-model="user.first_name" />
 						</div>
 						<div class="w-full">
 							<label
@@ -35,7 +70,8 @@
 								type="text"
 								class="outline-none bg-zinc-50 border border-zinc-300 text-zinc-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 								placeholder="Eshmatov"
-								required="" />
+								required=""
+								v-model="user.last_name" />
 						</div>
 					</div>
 					<div class="flex items-center gap-5">
@@ -48,8 +84,9 @@
 							<input
 								type="number"
 								class="outline-none bg-zinc-50 border border-zinc-300 text-zinc-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-								placeholder="Toshmat"
-								required="" />
+								placeholder="19"
+								required=""
+								v-model="user.age" />
 						</div>
 						<div class="w-full">
 							<label
@@ -59,9 +96,10 @@
 							>
 							<input
 								type="number"
-								placeholder="887038006"
+								placeholder="+998991234567"
 								class="outline-none bg-zinc-50 border border-zinc-300 text-zinc-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-								required="" />
+								required=""
+								v-model="user.phone" />
 						</div>
 					</div>
 					<button

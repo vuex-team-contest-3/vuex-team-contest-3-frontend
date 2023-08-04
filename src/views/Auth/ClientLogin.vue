@@ -1,7 +1,38 @@
-<script setup></script>
+<script setup>
+import { ref, reactive } from "vue";
+import { useUser } from "@/stores/user";
+import { useRouter } from "vue-router";
+import { toast } from "vue3-toastify";
+
+const user_store = useUser();
+const router = useRouter();
+
+const user = reactive({
+	login: "",
+	password: "",
+});
+
+const login = async () => {
+	try {
+		const data = await user_store.LOGIN_USER(user);
+		localStorage.setItem("token", data.token);
+		router.push("/");
+		toast.success("Muvaffaqiyatli kirdingiz", {
+			autoClose: 1000,
+			theme: "light",
+		});
+	} catch (error) {
+		console.log(error);
+		toast.error("Login yoki Parol xato", {
+			autoClose: 1000,
+			theme: "light",
+		});
+	}
+};
+</script>
 
 <template>
-	<div class="py-10 flex items-center justify-center">
+	<div class="py-20 flex items-center justify-center">
 		<div
 			class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-zinc-800 dark:border-zinc-700">
 			<div class="p-6 space-y-4 md:space-y-6 sm:p-8">

@@ -76,23 +76,25 @@ const router = createRouter({
 					component: () => import("@/views/Admin/Clinic.vue"),
 				},
 				{
-					path: "/admin/settings",
-					name: "Settings",
-					component: () => import("@/views/Admin/Settings.vue"),
+					path: "/admin/doctor",
+					name: "Doctor Clinic",
+					component: () => import("@/views/Admin/Clinics.vue"),
 				},
 			],
 		},
 	],
 });
 
-// router.beforeEach((to, from, next) => {
-// 	if (to.name != "Login" && !localStorage.getItem("token")) {
-// 		next("/login");
-// 	} else if (to.name == "Login" && localStorage.getItem("token")) {
-// 		next("/");
-// 	} else {
-// 		next();
-// 	}
-// });
+import { useUser } from "../stores/user";
+
+router.beforeEach((to, from, next) => {
+	const user_store = useUser();
+	try {
+		user_store.GET_USER();
+		next();
+	} catch (error) {
+		console.log(error);
+	}
+});
 
 export default router;

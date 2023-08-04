@@ -16,10 +16,9 @@ const doctor = reactive({
 const login = async () => {
 	try {
 		console.log(doctor);
-		const data = await user_store.LOGIN_ADMIN(doctor);
-		console.log(data);
-		// localStorage.setItem("token", data.token);
-		// router.push("/admin");
+		const data = await user_store.LOGIN_DOCTOR(doctor);
+		localStorage.setItem("token", data.token);
+		router.push("/admin/doctor");
 	} catch (error) {
 		console.log(error);
 	}
