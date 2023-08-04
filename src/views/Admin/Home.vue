@@ -1,8 +1,15 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, reactive } from "vue";
+import { useClinic } from "@/stores/clinic";
+import { useClient } from "@/stores/client";
 
-onMounted(() => {
+const clinic_store = useClinic();
+const client_store = useClient();
+
+onMounted(async () => {
 	AOS.init();
+	await clinic_store.GET_CLINIC();
+	await client_store.GET_CLIENT();
 });
 </script>
 
@@ -13,8 +20,8 @@ onMounted(() => {
 				data-aos="flip-right"
 				class="bg-yellow-400 h-24 rounded-lg flex items-center justify-between px-5">
 				<div class="block">
-					<h4 class="text-2xl font-bold">Users</h4>
-					<h3 class="text-3xl">20</h3>
+					<h4 class="text-2xl font-bold">Clients</h4>
+					<h3 class="text-3xl">{{ client_store.CLIENTS.length }}</h3>
 				</div>
 				<i class="text-6xl bx bx-user"></i>
 			</div>
@@ -23,7 +30,7 @@ onMounted(() => {
 				class="bg-green-400 h-24 rounded-lg flex items-center justify-between px-5">
 				<div class="block">
 					<h4 class="text-2xl font-bold">Clinics</h4>
-					<h3 class="text-3xl">13</h3>
+					<h3 class="text-3xl">{{ clinic_store.CLINICS.length }}</h3>
 				</div>
 				<i class="text-6xl bx bx-location-plus"></i>
 			</div>

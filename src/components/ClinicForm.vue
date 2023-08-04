@@ -1,7 +1,27 @@
 <script setup>
-const { clinicModal, clinic, clinicFunc, resetFormClinic, isAdd } = defineProps(
-	["clinicModal", "clinic", "clinicFunc", "resetFormClinic", "isAdd"]
-);
+const { clinicModal, clinic, clinicFunc, resetFormClinic, formData, isAdd } =
+	defineProps([
+		"clinicModal",
+		"clinic",
+		"clinicFunc",
+		"resetFormClinic",
+		"formData",
+		"isAdd",
+	]);
+
+const onChange = (e) => {
+	clinic.image = e.target.files[0];
+	clinic.imageURL = URL.createObjectURL(e.target.files[0]);
+};
+
+const addPhoto = (e) => {
+	console.log(e.target.files);
+	formData.append("image", e.raw);
+};
+
+const removePhoto = () => {
+	formData.delete("image");
+};
 </script>
 
 <template>
@@ -9,7 +29,7 @@ const { clinicModal, clinic, clinicFunc, resetFormClinic, isAdd } = defineProps(
 	<div
 		class="absolute w-full h-screen bg-black/70 left-0 flex items-center justify-center z-50 duration-300"
 		:class="clinicModal ? 'top-0' : '-top-full'">
-		<div class="relative w-full max-w-2xl max-h-full">
+		<div class="relative w-full max-w-3xl max-h-full">
 			<!-- Modal content -->
 			<div
 				class="relative bg-white rounded-lg shadow dark:bg-zinc-900 border border-zinc-800">
@@ -24,19 +44,32 @@ const { clinicModal, clinic, clinicFunc, resetFormClinic, isAdd } = defineProps(
 						{{ isAdd ? "Yangi shifoxona qo'shish" : "Shifoxonani yangilash" }}
 					</h3>
 					<form class="flex gap-5 mb-5">
-						<div class="w-[40%] flex items-center justify-center">
+						<div class="w-[40%]">
 							<label
 								for="image"
-								class="flex items-center justify-center h-44 w-44 bg-zinc-950 rounded-full mx-auto cursor-pointer border border-zinc-700">
-								<img v-if="clinic?.img" src="@/assets/logo.png" alt="" />
+								class="flex items-center justify-center h-56 w-56 bg-zinc-950 mx-auto cursor-pointer border rounded-full p-2 border-zinc-700">
+								<img
+									v-if="clinic.image"
+									:src="clinic.imageURL"
+									class="object-cover h-full w-full rounded-full"
+									alt="" />
 								<i v-else class="text-7xl text-white bx bx-upload"></i>
 							</label>
 							<input
+								@change="addPhoto"
+								@remove="removePhoto"
+								ref="upload"
 								type="file"
+								accept="image/*"
 								id="image"
 								class="hidden"
 								placeholder="Shoxmed	"
-								required />
+								required="" />
+							<h3 class="text-xs text-center mt-5 font-medium text-red-500">
+								Xajmi: 1MB dan oshmasin
+								<br />
+								Turi: .JPG, .PNG, .JPEG
+							</h3>
 						</div>
 						<div class="w-[60%] space-y-5">
 							<div>
@@ -58,8 +91,8 @@ const { clinicModal, clinic, clinicFunc, resetFormClinic, isAdd } = defineProps(
 									Telefon raqami
 								</label>
 								<input
-									type="number"
-									id="full_name"
+									type="string"
+									id="phone"
 									class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
 									placeholder="887038006"
 									required

@@ -1,46 +1,44 @@
 import { reactive, ref, computed } from "vue";
 import { defineStore } from "pinia";
+import { useClinics } from "../service/clinic";
 
 export const useClinic = defineStore("clinic", () => {
 	const store = reactive({
-		data: [
-			{
-				id: 1690788022057,
-				name: "Najot Talim",
-				address: "Chilonzor",
-				phone: "8870380006",
-			},
-			{
-				id: 1690788022059,
-				name: "MedPLus",
-				address: "Yunusobod 20-daha",
-				phone: "999076566",
-			},
-		],
-		load: false,
+		data: [],
+		load: true,
 	});
 
-	const GET_CLINIC = () => {};
-
-	const GET_ONE = (id) => {
-		return store.data.filter((i) => i.id == id)[0];
+	const GET_CLINIC = async () => {
+		store.data = (await useClinics.GET()).data;
+		store.load = false;
 	};
 
-	const ADD_CLINIC = (data) => {
-		console.log(data);
+	const GET_ONE = async (id) => {
+		return (await useClinics.GET_ONE(id)).data;
+	};
+
+	const ADD_CLINIC = async (data) => {
+		(await useClinics.CREATE(data)).data;
 		store.data.push(data);
+		return GET_CLINIC();
 	};
 
-	const UPDATE_CLINIC = (id, data) => {
+	const UPDATE_CLINIC = async (id, data) => {
 		for (const i in store.data) {
 			if (store.data[i].id == id) {
-				store.data[i] = data;
+				(await useClinics.UPDATE(id, data)).data;
+				return GET_CLINIC();
 			}
 		}
 	};
 
-	const DELETE_CLINIC = (id) => {
-		store.data = store.data.filter((i) => i.id != id);
+	const DELETE_CLINIC = async (id) => {
+		try {
+			await useClinics.DELETE(id);
+			return GET_CLINIC();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const CLINICS = computed(() => store.data);

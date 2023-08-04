@@ -9,16 +9,18 @@ const page = reactive({
 	itemsPerPage: 7,
 });
 
-onMounted(() => {
+onMounted(async () => {
 	AOS.init();
+	await clinic_store.GET_CLINIC();
 });
 </script>
 
 <template>
 	<div class="py-10">
-		<div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
+		<div
+			v-if="!clinic_store.LOAD"
+			class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
 			<ClineCard
-				v-if="!clinic_store.LOAD"
 				v-for="el in clinic_store.CLINICS.slice(
 					(page.currentPage - 1) * page.itemsPerPage,
 					(page.currentPage - 1) * page.itemsPerPage + page.itemsPerPage
@@ -26,7 +28,9 @@ onMounted(() => {
 				:data="el"
 				isUser="1"
 				:router="`/clinics/${el.id}`" />
-			<LoadingCards v-else v-for="el in 4" />
+		</div>
+		<div v-else class="w-full flex items-center justify-center py-20">
+			<Loading />
 		</div>
 
 		<Pagination :page="page" :data="clinic_store.CLINICS" />

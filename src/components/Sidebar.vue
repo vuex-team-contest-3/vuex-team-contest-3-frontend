@@ -1,7 +1,11 @@
 <script setup>
 import { menus } from "@/constants/menus";
 import { useMode } from "@/stores/mode";
+import { useUser } from "@/stores/user";
+import { useRouter } from "vue-router";
 
+const user_store = useUser();
+const router = useRouter();
 const mode = useMode();
 </script>
 
@@ -18,11 +22,14 @@ const mode = useMode();
 					alt="" />
 				<h1 class="hidden lg:block text-2xl">ClineApp</h1>
 			</a>
-			<div class="flex flex-col justify-between flex-1 mt-6">
+			<div
+				v-if="!user_store.LOAD"
+				class="flex flex-col justify-between flex-1 mt-6">
 				<nav>
 					<router-link
 						v-for="el in menus"
-						class="flex items-center px-3 py-2 mb-3 text-zinc-700 bg-zinc-100 rounded-lg dark:bg-zinc-800 dark:text-zinc-200"
+						class="items-center px-3 py-2 mb-3 text-zinc-700 bg-zinc-100 rounded-lg dark:bg-zinc-800 dark:text-zinc-200"
+						:class="el.role.includes(user_store.USER.role) ? 'flex' : 'hidden'"
 						:to="el.path">
 						<i class="text-2xl" :class="el.icon"></i>
 						<span class="hidden lg:block mx-3 text-md font-medium">
@@ -30,16 +37,17 @@ const mode = useMode();
 						</span>
 					</router-link>
 					<button
-						@click="mode.changeMode"
+						@click="router.push('/')"
 						class="flex items-center w-full px-3 py-2 mb-3 text-zinc-700 bg-zinc-100 rounded-lg dark:bg-zinc-800 dark:text-zinc-200">
-						<i
-							class="text-2xl"
-							:class="mode.mode ? 'bx bx-sun' : 'bx bx-moon'"></i>
+						<i class="text-2xl bx bx-left-arrow-alt"></i>
 						<span class="hidden lg:block mx-3 text-md font-medium">
-							{{ mode.mode ? "Light" : "Dark" }}
+							Ortga
 						</span>
 					</button>
 				</nav>
+			</div>
+			<div v-else class="w-full flex items-center justify-center py-20">
+				<Loading />
 			</div>
 		</aside>
 	</div>

@@ -4,14 +4,8 @@ import { defineStore } from "pinia";
 export const useDiagnosis = defineStore("diagnosis", () => {
 	const store = reactive({
 		data: [
-			{
-				id: 1690788022057,
-				name: "Tish o'g'rig'i",
-			},
-			{
-				id: 1690788022059,
-				name: "Plomba",
-			},
+			{ id: 1690788022057, name: "Tish o'g'rig'i" },
+			{ id: 1690788022059, name: "Plomba" },
 		],
 		load: false,
 	});
@@ -39,8 +33,8 @@ export const useDiagnosis = defineStore("diagnosis", () => {
 		store.data = store.data.filter((i) => i.id != id);
 	};
 
-	const CLINICS = computed(() => store.data);
+	const DIAGNOSIS = computed(() => store.data);
 	const LOAD = computed(() => store.load);
 
-	return { CLINICS, LOAD, GET, ADD, UPDATE, GET_ONE, DELETE };
+	return { DIAGNOSIS, LOAD, GET, ADD, UPDATE, GET_ONE, DELETE };
 });
