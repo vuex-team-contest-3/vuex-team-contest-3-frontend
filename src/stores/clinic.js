@@ -1,26 +1,18 @@
 import { reactive, ref, computed } from "vue";
 import { defineStore } from "pinia";
+import { useClinics } from "../service/clinic";
 
 export const useClinic = defineStore("clinic", () => {
 	const store = reactive({
-		data: [
-			{
-				id: 1690788022057,
-				name: "Najot Talim",
-				address: "Chilonzor",
-				phone: "8870380006",
-			},
-			{
-				id: 1690788022059,
-				name: "MedPLus",
-				address: "Yunusobod 20-daha",
-				phone: "999076566",
-			},
-		],
-		load: false,
+		data: [],
+		load: true,
 	});
 
-	const GET_CLINIC = () => {};
+	const GET_CLINIC = async () => {
+		store.data = (await useClinics.GET()).data;
+		store.load = false;
+		console.log(store.data);
+	};
 
 	const GET_ONE = (id) => {
 		return store.data.filter((i) => i.id == id)[0];

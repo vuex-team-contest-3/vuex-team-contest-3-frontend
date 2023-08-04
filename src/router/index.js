@@ -28,6 +28,31 @@ const router = createRouter({
 					name: "Login",
 					component: () => import("@/views/Auth/Login.vue"),
 				},
+				{
+					path: "/login/doctor",
+					name: "DoctorLogin",
+					component: () => import("@/views/Auth/DoctorLogin.vue"),
+				},
+				{
+					path: "/login/admin",
+					name: "AdminLogin",
+					component: () => import("@/views/Auth/AdminLogin.vue"),
+				},
+				{
+					path: "/login/client",
+					name: "ClientLogin",
+					component: () => import("@/views/Auth/ClientLogin.vue"),
+				},
+				{
+					path: "/register/client",
+					name: "ClientRegister",
+					component: () => import("@/views/Auth/ClientRegister.vue"),
+				},
+				{
+					path: "/:pathMatch(.*)*",
+					name: "Error",
+					component: () => import("@/views/Error.vue"),
+				},
 			],
 		},
 		{
@@ -56,11 +81,6 @@ const router = createRouter({
 					component: () => import("@/views/Admin/Settings.vue"),
 				},
 			],
-		},
-		{
-			path: "/:pathMatch(.*)*",
-			name: "Error",
-			component: () => import("@/views/Error.vue"),
 		},
 	],
 });
