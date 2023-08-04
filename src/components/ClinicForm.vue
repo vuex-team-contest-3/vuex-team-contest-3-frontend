@@ -2,6 +2,11 @@
 const { clinicModal, clinic, clinicFunc, resetFormClinic, isAdd } = defineProps(
 	["clinicModal", "clinic", "clinicFunc", "resetFormClinic", "isAdd"]
 );
+
+const onChange = (e) => {
+	const file = e.target.files[0];
+	clinic.image = URL.createObjectURL(file);
+};
 </script>
 
 <template>
@@ -9,7 +14,7 @@ const { clinicModal, clinic, clinicFunc, resetFormClinic, isAdd } = defineProps(
 	<div
 		class="absolute w-full h-screen bg-black/70 left-0 flex items-center justify-center z-50 duration-300"
 		:class="clinicModal ? 'top-0' : '-top-full'">
-		<div class="relative w-full max-w-2xl max-h-full">
+		<div class="relative w-full max-w-3xl max-h-full">
 			<!-- Modal content -->
 			<div
 				class="relative bg-white rounded-lg shadow dark:bg-zinc-900 border border-zinc-800">
@@ -27,8 +32,12 @@ const { clinicModal, clinic, clinicFunc, resetFormClinic, isAdd } = defineProps(
 						<div class="w-[40%] flex items-center justify-center">
 							<label
 								for="image"
-								class="flex items-center justify-center h-44 w-44 bg-zinc-950 rounded-full mx-auto cursor-pointer border border-zinc-700">
-								<img v-if="clinic?.img" src="@/assets/logo.png" alt="" />
+								class="flex items-center justify-center h-56 w-56 bg-zinc-950 mx-auto cursor-pointer border rounded-full p-2 border-zinc-700">
+								<img
+									v-if="clinic.image"
+									:src="clinic.image"
+									class="object-cover h-full w-full rounded-full"
+									alt="" />
 								<i v-else class="text-7xl text-white bx bx-upload"></i>
 							</label>
 							<input
@@ -36,7 +45,8 @@ const { clinicModal, clinic, clinicFunc, resetFormClinic, isAdd } = defineProps(
 								id="image"
 								class="hidden"
 								placeholder="Shoxmed	"
-								required />
+								required=""
+								@change="onChange" />
 						</div>
 						<div class="w-[60%] space-y-5">
 							<div>

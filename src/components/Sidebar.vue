@@ -22,7 +22,9 @@ const mode = useMode();
 					alt="" />
 				<h1 class="hidden lg:block text-2xl">ClineApp</h1>
 			</a>
-			<div class="flex flex-col justify-between flex-1 mt-6">
+			<div
+				v-if="!user_store.LOAD"
+				class="flex flex-col justify-between flex-1 mt-6">
 				<nav>
 					<router-link
 						v-for="el in menus"
@@ -43,6 +45,9 @@ const mode = useMode();
 						</span>
 					</button>
 				</nav>
+			</div>
+			<div v-else class="w-full flex items-center justify-center py-20">
+				<Loading />
 			</div>
 		</aside>
 	</div>

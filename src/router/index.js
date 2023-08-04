@@ -74,6 +74,23 @@ const router = createRouter({
 					path: "/admin/clinics/:id",
 					name: "One Clinic",
 					component: () => import("@/views/Admin/Clinic.vue"),
+					children: [
+						{
+							path: "/admin/clinics/:id",
+							name: "One Clinic",
+							component: () => import("@/views/Admin/Clinic.vue"),
+						},
+						{
+							path: "/admin/clinics/:id/doctor",
+							name: "One Clinic",
+							component: () => import("@/views/Admin/Clinic.vue"),
+						},
+						{
+							path: "/admin/clinics/:id/price",
+							name: "One Clinic",
+							component: () => import("@/views/Admin/Clinic.vue"),
+						},
+					],
 				},
 				{
 					path: "/admin/doctor",

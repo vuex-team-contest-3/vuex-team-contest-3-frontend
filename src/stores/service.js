@@ -1,46 +1,48 @@
 import { reactive, ref, computed } from "vue";
 import { defineStore } from "pinia";
+import { useServices } from "../service/service";
 
 export const useService = defineStore("service", () => {
 	const store = reactive({
-		data: [
-			{
-				id: 1690788022057,
-				name: "Stomotolog",
-				price: "12000",
-				clinic_id: 1690788022057,
-			},
-			{
-				id: 1690788022059,
-				name: "Lor",
-				price: "40000",
-				clinic_id: 1690788022057,
-			},
-		],
+		data: [],
 		load: false,
 	});
 
-	const GET = () => {};
-
-	const GET_ONE = (id) => {
-		return store.data.filter((i) => i.id == id)[0];
+	const GET = async () => {
+		store.data = (await useServices.GET()).data;
+		store.load = false;
 	};
 
-	const ADD = (data) => {
-		console.log(data);
-		store.data.push(data);
+	const GET_ONE = async (id) => {
+		return (await useServices.GET_ONE(id)).data;
 	};
 
-	const UPDATE = (id, data) => {
+	const ADD = async (data) => {
+		try {
+			(await useServices.CREATE(data)).data;
+			store.data.push(data);
+			return GET();
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const UPDATE = async (id, data) => {
 		for (const i in store.data) {
 			if (store.data[i].id == id) {
-				store.data[i] = data;
+				(await useServices.UPDATE(id, data)).data;
+				return GET();
 			}
 		}
 	};
 
-	const DELETE = (id) => {
-		store.data = store.data.filter((i) => i.id != id);
+	const DELETE = async (id) => {
+		try {
+			await useServices.DELETE(id);
+			return GET();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const CLINICS = computed(() => store.data);

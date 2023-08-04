@@ -13,7 +13,7 @@ const addClinicModal = ref(false);
 const newClinic = reactive({
 	name: "",
 	address: "",
-	img: "",
+	image: null,
 	phone: "",
 });
 

@@ -50,7 +50,7 @@ onMounted(async () => {
 					@click="changeModal"
 					class="bg-zinc-700 flex items-center gap-2 justify-center p-2 px-5 rounded-lg text-zinc-300 border border-zinc-500">
 					<i class="bx bx-plus text-lg"></i>
-					<span>Yangi xizmat qo'shish</span>
+					<span>Yangi shifokor qo'shish</span>
 				</button>
 			</div>
 			<div class="relative w-[30%]">
@@ -68,49 +68,14 @@ onMounted(async () => {
 			</div>
 		</div>
 		<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-			<table class="w-full text-sm text-left text-zinc-400">
-				<thead class="text-xs uppercase bg-zinc-700 text-zinc-400">
-					<tr>
-						<th scope="col" class="px-6 py-3">Xizmat nomi</th>
-						<th scope="col" class="px-6 py-3">Xizmat tashxislari</th>
-						<th scope="col" class="px-6 py-3">Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr
-						v-for="el in data.service"
-						class="border-b bg-zinc-800 border-zinc-700">
-						<th
-							scope="row"
-							class="px-6 py-4 font-medium whitespace-nowrap text-white">
-							{{ el.name }}
-						</th>
-						<td class="px-6 py-4 flex">
-							<div
-								class="flex items-center gap-2 border border-blue-500 pl-2 rounded-lg p-1">
-								<span v-if="el.diagnosis" class="" v-for="diag in el.diagnosis">
-									{{ diag }},
-								</span>
-								<span class="text-sm font-medium px-5">NO DIAGNOSIS</span>
-
-								<button
-									@click="() => (diagnosisModal = el.id)"
-									class="outline-none bg-blue-500 text-white flex items-center justify-center p-1 px-2 rounded-lg">
-									<i class="bx bx-plus text-lg"></i>
-								</button>
-							</div>
-						</td>
-						<td class="px-6 py-4">
-							<div class="flex items-center gap-2">
-								<i
-									class="bg-red-500 text-white p-1 px-2 rounded-full cursor-pointer bx bx-trash text-xl"></i>
-								<i
-									class="bg-green-500 text-white p-1 px-2 rounded-full cursor-pointer bx bx-pencil text-xl"></i>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="grid grid-cols-3 gap-5">
+				<div class="bg-zinc-800 rounded-lg">
+					<img
+						src="@/assets/logo.png"
+						class="object-cover h-44 w-44 mx-auto"
+						alt="" />
+				</div>
+			</div>
 		</div>
 	</div>
 </template>

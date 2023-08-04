@@ -13,8 +13,8 @@ export const useClinic = defineStore("clinic", () => {
 		store.load = false;
 	};
 
-	const GET_ONE = (id) => {
-		return store.data.filter((i) => i.id == id)[0];
+	const GET_ONE = async (id) => {
+		return (await useClinics.GET_ONE(id)).data;
 	};
 
 	const ADD_CLINIC = async (data) => {
