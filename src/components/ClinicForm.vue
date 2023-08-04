@@ -4,8 +4,8 @@ const { clinicModal, clinic, clinicFunc, resetFormClinic, isAdd } = defineProps(
 );
 
 const onChange = (e) => {
-	const file = e.target.files[0];
-	clinic.image = URL.createObjectURL(file);
+	clinic.image = e.target.files[0];
+	clinic.imageURL = URL.createObjectURL(e.target.files[0]);
 };
 </script>
 
@@ -29,24 +29,30 @@ const onChange = (e) => {
 						{{ isAdd ? "Yangi shifoxona qo'shish" : "Shifoxonani yangilash" }}
 					</h3>
 					<form class="flex gap-5 mb-5">
-						<div class="w-[40%] flex items-center justify-center">
+						<div class="w-[40%]">
 							<label
 								for="image"
 								class="flex items-center justify-center h-56 w-56 bg-zinc-950 mx-auto cursor-pointer border rounded-full p-2 border-zinc-700">
 								<img
 									v-if="clinic.image"
-									:src="clinic.image"
+									:src="clinic.imageURL"
 									class="object-cover h-full w-full rounded-full"
 									alt="" />
 								<i v-else class="text-7xl text-white bx bx-upload"></i>
 							</label>
 							<input
 								type="file"
+								accept="image/*"
 								id="image"
 								class="hidden"
 								placeholder="Shoxmed	"
 								required=""
 								@change="onChange" />
+							<h3 class="text-xs text-center mt-5 font-medium text-red-500">
+								Xajmi: 1MB dan oshmasin
+								<br />
+								Turi: .JPG, .PNG, .JPEG
+							</h3>
 						</div>
 						<div class="w-[60%] space-y-5">
 							<div>

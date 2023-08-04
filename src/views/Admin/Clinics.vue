@@ -2,6 +2,7 @@
 import { ref, reactive } from "vue";
 import { useClinic } from "@/stores/clinic";
 import { onMounted } from "vue";
+import { toast } from "vue3-toastify";
 
 const clinic_store = useClinic();
 const page = reactive({
@@ -10,21 +11,50 @@ const page = reactive({
 });
 const addClinicModal = ref(false);
 
+const formData = new FormData();
+
 const newClinic = reactive({
 	name: "",
 	address: "",
 	image: null,
 	phone: "",
+	imageURL: "",
 });
+
+const addPhoto = (e) => {
+	formData.append("image", e.raw);
+};
+
+const removePhoto = () => {
+	formData.delete("image");
+};
 
 const resetFormClinic = () => {
 	addClinicModal.value = !addClinicModal.value;
 	for (const i in newClinic) newClinic[i] = "";
 };
 
-const addNewClinic = () => {
-	clinic_store.ADD_CLINIC(newClinic);
-	resetFormClinic();
+const addNewClinic = async () => {
+	try {
+		formData.append("", data.position);
+		formData.append("company", data.company);
+		formData.append("date_from", data.date_from);
+		formData.append("date_to", data.date_to);
+
+		console.log(formData);
+		await clinic_store.ADD_CLINIC(formData);
+		resetFormClinic();
+		toast.success("Klinika muvaffaqiyatli qo'shildi", {
+			autoClose: 1000,
+			theme: "light",
+		});
+	} catch (error) {
+		console.log(error);
+		toast.success("Formani to'g'ri to'ldiring", {
+			autoClose: 1000,
+			theme: "light",
+		});
+	}
 };
 
 onMounted(async () => {

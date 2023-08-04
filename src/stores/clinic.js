@@ -18,13 +18,9 @@ export const useClinic = defineStore("clinic", () => {
 	};
 
 	const ADD_CLINIC = async (data) => {
-		try {
-			(await useClinics.CREATE(data)).data;
-			store.data.push(data);
-			return GET_CLINIC();
-		} catch (error) {
-			console.log(error);
-		}
+		(await useClinics.CREATE(data)).data;
+		store.data.push(data);
+		return GET_CLINIC();
 	};
 
 	const UPDATE_CLINIC = async (id, data) => {

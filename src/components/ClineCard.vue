@@ -35,7 +35,9 @@ const updateClinic = async () => {
 
 const deleteClinic = async () => {
 	try {
-		await clinic_store.DELETE_CLINIC(deleteId.value);
+		const deletedIdCpy = deleteId.value;
+		changeDelete();
+		await clinic_store.DELETE_CLINIC(deletedIdCpy);
 		toast.success("Klinika muvaffaqiyatli o'chirildi", {
 			autoClose: 1000,
 			theme: "light",
@@ -82,26 +84,30 @@ onMounted(() => {
 				class="text-lg bg-green-500 px-2 p-1 absolute bx bx-pencil -top-2 -left-2 rounded-full"></i>
 			<router-link :to="router" class="block">
 				<img
+					v-if="data.image_name"
+					:src="`https://nest-clinic.onrender.com/api/image/${data.image_name}`"
+					class="mb-5 h-32 w-32 mx-auto bg-zinc-900 border border-zinc-700 group-hover:border-zinc-600 duration-300 rounded-full" />
+				<img
+					v-else
 					src="@/assets/logo.png"
-					class="mb-5 h-32 w-32 mx-auto bg-zinc-900 border border-zinc-700 group-hover:border-zinc-600 duration-300 rounded-full"
-					alt="" />
+					class="mb-5 h-32 w-32 mx-auto bg-zinc-900 border border-zinc-700 group-hover:border-zinc-600 duration-300 rounded-full" />
 				<div class="flex items-center mb-1">
 					<HeartMedIcon />
-					<span class="font-medium text-xl ml-1 bg-transparent outline-none">
+					<span class="text-md font-medium ml-1 bg-transparent outline-none">
 						{{ data.name }}
 					</span>
 				</div>
 				<div class="flex items-center mb-1">
 					<LocationIcon />
-					<span class="text-sm ml-1 bg-transparent outline-none">
+					<span class="lg:text-sm sm:text-xs ml-1 bg-transparent outline-none">
 						{{ data.address }}</span
 					>
 				</div>
 				<div class="flex items-center mb-1">
 					<PhoneIcon />
-					<span class="text-sm ml-1 bg-transparent outline-none">
-						{{ data.phone }}</span
-					>
+					<span class="lg:text-sm sm:text-xs ml-1 bg-transparent outline-none">
+						{{ data.phone }}
+					</span>
 				</div>
 				<div v-if="isUser == 1" class="flex items-center justify-between pt-2">
 					<div class="flex items-center justify-between gap-2">
