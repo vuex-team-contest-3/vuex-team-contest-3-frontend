@@ -12,9 +12,6 @@ const router = createRouter({
 					path: "/",
 					name: "Home",
 					component: () => import("@/views/User/Home.vue"),
-					beforeEnter: (to, from) => {
-						return false;
-					},
 				},
 				{
 					path: "/clinics",
@@ -25,6 +22,11 @@ const router = createRouter({
 					path: "/about",
 					name: "About",
 					component: () => import("@/views/User/About.vue"),
+				},
+				{
+					path: "/login",
+					name: "Login",
+					component: () => import("@/views/Auth/Login.vue"),
 				},
 			],
 		},

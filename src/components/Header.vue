@@ -1,9 +1,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
 import Button from "../components/Button.vue";
 
 const menu = ref(true);
 const toggleMenu = () => (menu.value = !menu.value);
+const route = useRoute();
 
 const links = [
 	{
@@ -52,13 +54,14 @@ onMounted(() => {
 							class="text-white group-hover:w-full duration-300 mt-1 bg-white h-[3px] w-10 rounded-full bottom"></div>
 					</router-link>
 				</div>
-				<div class="hidden lg:block">
+				<div v-if="route.name != 'Login'" class="hidden lg:block">
 					<div class="flex items-center gap-8 text-[16px] text-white font-bold">
 						<router-link to="/login">
-							<Button name="Login"> </Button>
+							<Button name="Kirish"> </Button>
 						</router-link>
 					</div>
 				</div>
+				<div v-else class="w-36"></div>
 				<div class="lg:hidden reletive">
 					<button
 						@click="toggleMenu"
