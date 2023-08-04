@@ -4,6 +4,11 @@ import { useDiagnosis } from "@/stores/diagnosis";
 import { useService } from "@/stores/service";
 const { data } = defineProps(["data"]);
 
+const page = reactive({
+	currentPage: 1,
+	itemsPerPage: 3,
+});
+
 const diagnosis_store = useDiagnosis();
 const serviceModal = ref(false);
 const diagnosisModal = ref(null);
@@ -69,13 +74,50 @@ onMounted(async () => {
 		</div>
 		<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 			<div class="grid grid-cols-3 gap-5">
-				<div class="bg-zinc-800 rounded-lg">
+				<div
+					v-for="el in data.doctor.slice(
+						(page.currentPage - 1) * page.itemsPerPage,
+						(page.currentPage - 1) * page.itemsPerPage + page.itemsPerPage
+					)"
+					class="bg-zinc-800 border border-zinc-600 rounded-lg p-3 space-y-1">
 					<img
-						src="@/assets/logo.png"
-						class="object-cover h-44 w-44 mx-auto"
+						:src="
+							el.image
+								? `https://nest-clinic.onrender.com/api/image/${el.image}`
+								: '@/assets/logo.png'
+						"
+						class="mb-5 object-cover h-32 w-32 border border-zinc-600 mx-auto bg-zinc-950 rounded-full"
 						alt="" />
+					<h3 class="flex items-center gap-2 text-sm font-medium">
+						<UserIcon />
+						<span>{{ el.first_name }} {{ el.last_name }}</span>
+					</h3>
+					<h3 class="flex items-center gap-2 text-sm">
+						<MedicalIcon />
+						<span>{{ el.profession }}</span>
+					</h3>
+					<h3 class="flex items-center gap-2 text-sm">
+						<PhoneIcon />
+						<span>{{ el.phone }}</span>
+					</h3>
+					<h3 class="flex items-center gap-2 text-sm">
+						<CalendarCheckIcon />
+						<span>{{ el.work_day }}</span>
+					</h3>
+					<div class="w-full flex items-end justify-between pt-5">
+						<span class="text-zinc-400 text-sm">15.02.23</span>
+						<div class="flex items-center gap-2">
+							<i
+								@click="() => (updateId = data.id)"
+								class="text-lg bg-green-500 px-1 bx bx-pencil rounded-lg cursor-pointer"></i>
+							<i
+								@click="() => (deleteId = data.id)"
+								class="text-lg bg-red-500 px-1 bx bx-trash rounded-lg cursor-pointer"></i>
+						</div>
+					</div>
 				</div>
 			</div>
+			<Pagination :page="page" :data="data.doctor" />
 		</div>
 	</div>
 </template>

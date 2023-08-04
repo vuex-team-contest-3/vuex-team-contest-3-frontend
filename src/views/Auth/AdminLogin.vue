@@ -21,7 +21,7 @@ const login = async () => {
 		console.log(error);
 		toast.error("Login yoki Parol xato", {
 			autoClose: 1000,
-			theme: "light",
+			theme: "dark",
 		});
 	}
 };

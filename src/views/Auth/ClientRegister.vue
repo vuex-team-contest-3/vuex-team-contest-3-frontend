@@ -21,13 +21,13 @@ const register = async () => {
 		// router.push("/");
 		toast.success("Muvaffaqiyatli ro'yxatdan o'tdingiz", {
 			autoClose: 1000,
-			theme: "light",
+			theme: "dark",
 		});
 	} catch (error) {
 		console.log(error);
 		toast.error("Formani to'g'ri to'ldiring", {
 			autoClose: 1000,
-			theme: "light",
+			theme: "dark",
 		});
 	}
 };

@@ -5,7 +5,7 @@ import { useRoute } from "vue-router";
 
 const { id } = useRoute().params;
 const clinic_store = useClinic();
-const clinic = ref();
+let clinic = ref();
 const clinicMenus = reactive({
 	currentMenu: 0,
 	menus: ["Xizmatlar", "Shifokorlar", "Narxlar"],

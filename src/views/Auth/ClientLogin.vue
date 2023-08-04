@@ -19,13 +19,13 @@ const login = async () => {
 		router.push("/");
 		toast.success("Muvaffaqiyatli kirdingiz", {
 			autoClose: 1000,
-			theme: "light",
+			theme: "dark",
 		});
 	} catch (error) {
 		console.log(error);
 		toast.error("Login yoki Parol xato", {
 			autoClose: 1000,
-			theme: "light",
+			theme: "dark",
 		});
 	}
 };

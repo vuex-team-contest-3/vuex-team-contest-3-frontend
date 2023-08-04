@@ -28,7 +28,7 @@ const updateClinic = async () => {
 	await clinic_store.UPDATE_CLINIC(updateId.value, updated);
 	toast.success("Klinika muvaffaqiyatli o'zgartirildi", {
 		autoClose: 1000,
-		theme: "light",
+		theme: "dark",
 	});
 	resetFormClinic();
 };
@@ -40,7 +40,7 @@ const deleteClinic = async () => {
 		await clinic_store.DELETE_CLINIC(deletedIdCpy);
 		toast.success("Klinika muvaffaqiyatli o'chirildi", {
 			autoClose: 1000,
-			theme: "light",
+			theme: "dark",
 		});
 		resetFormClinic();
 		realRouter.push("/admin/clinics");
@@ -48,7 +48,7 @@ const deleteClinic = async () => {
 		console.log(error);
 		toast.error("Xatolik", {
 			autoClose: 1000,
-			theme: "light",
+			theme: "dark",
 		});
 	}
 };
