@@ -21,14 +21,6 @@ const newClinic = reactive({
 	imageURL: "",
 });
 
-const addPhoto = (e) => {
-	formData.append("image", e.raw);
-};
-
-const removePhoto = () => {
-	formData.delete("image");
-};
-
 const resetFormClinic = () => {
 	addClinicModal.value = !addClinicModal.value;
 	for (const i in newClinic) newClinic[i] = "";
@@ -69,6 +61,7 @@ onMounted(async () => {
 		:clinic="newClinic"
 		:clinicFunc="addNewClinic"
 		:resetFormClinic="resetFormClinic"
+		:formData="formData"
 		isAdd="1" />
 	<div>
 		<div
