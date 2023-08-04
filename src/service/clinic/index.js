@@ -5,5 +5,5 @@ export const useClinics = {
 	GET: async () => await axios.get("clinic"),
 	GET_ONE: async (id) => await axios.get(`clinic/${id}`),
 	UPDATE: async (id, data) => await axios.patch(`clinic/${id}`, { ...data }),
-	DELETE: async (id) => await axios.delete(`clinic/${id}`, { ...data }),
+	DELETE: async (id) => await axios.delete(`clinic/${id}`),
 };

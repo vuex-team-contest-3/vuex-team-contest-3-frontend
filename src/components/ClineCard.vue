@@ -4,6 +4,7 @@ import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 const { isUser, data, router } = defineProps(["isUser", "data", "router"]);
 import { onMounted } from "vue";
+import { toast } from "vue3-toastify";
 
 const realRouter = useRouter();
 const updateId = ref(null);
@@ -18,15 +19,36 @@ const resetFormClinic = () => {
 	updateId.value = null;
 };
 
-const updateClinic = () => {
-	clinic_store.UPDATE_CLINIC(updateId.value, updatedData);
+const updateClinic = async () => {
+	const updated = {
+		name: updatedData.name,
+		address: updatedData.address,
+		phone: updatedData.phone,
+	};
+	await clinic_store.UPDATE_CLINIC(updateId.value, updated);
+	toast.success("Klinika muvaffaqiyatli o'zgartirildi", {
+		autoClose: 1000,
+		theme: "light",
+	});
 	resetFormClinic();
 };
 
-const deleteClinic = () => {
-	clinic_store.DELETE_CLINIC(deleteId.value);
-	resetFormClinic();
-	realRouter.push("/admin/clinics");
+const deleteClinic = async () => {
+	try {
+		await clinic_store.DELETE_CLINIC(deleteId.value);
+		toast.success("Klinika muvaffaqiyatli o'chirildi", {
+			autoClose: 1000,
+			theme: "light",
+		});
+		resetFormClinic();
+		realRouter.push("/admin/clinics");
+	} catch (error) {
+		console.log(error);
+		toast.error("Xatolik", {
+			autoClose: 1000,
+			theme: "light",
+		});
+	}
 };
 
 onMounted(() => {

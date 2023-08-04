@@ -17,20 +17,32 @@ export const useClinic = defineStore("clinic", () => {
 		return store.data.filter((i) => i.id == id)[0];
 	};
 
-	const ADD_CLINIC = (data) => {
-		store.data.push(data);
+	const ADD_CLINIC = async (data) => {
+		try {
+			(await useClinics.CREATE(data)).data;
+			store.data.push(data);
+			return GET_CLINIC();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
-	const UPDATE_CLINIC = (id, data) => {
+	const UPDATE_CLINIC = async (id, data) => {
 		for (const i in store.data) {
 			if (store.data[i].id == id) {
-				store.data[i] = data;
+				(await useClinics.UPDATE(id, data)).data;
+				return GET_CLINIC();
 			}
 		}
 	};
 
-	const DELETE_CLINIC = (id) => {
-		store.data = store.data.filter((i) => i.id != id);
+	const DELETE_CLINIC = async (id) => {
+		try {
+			await useClinics.DELETE(id);
+			return GET_CLINIC();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const CLINICS = computed(() => store.data);
