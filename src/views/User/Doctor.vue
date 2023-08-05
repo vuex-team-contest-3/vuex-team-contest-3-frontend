@@ -20,8 +20,7 @@ const is_queue_taken = ref(false);
 const router = useRouter();
 
 const lastQueue = computed(
-  () =>
-    queues.value?.lastIndexOf(queues.value.find((item) => !item.is_active)) + 1
+  () => queues.value?.map((item) => item.is_active).lastIndexOf(false) + 1
 );
 
 const cancelQueue = async () => {

@@ -8,24 +8,23 @@ const service_store = useService();
 const service = ref();
 
 onMounted(async () => {
-  service.value = await service_store.GET_ONE(id);
-  AOS.init();
+	service.value = await service_store.GET_ONE(id);
+	AOS.init();
 });
 </script>
 
 <template>
-  <div v-if="service" class="py-10">
-    <div class="grid grid-cols-1 sm:grid-cols-4 gap-5">
-      <DoctorCard
-        v-for="doctor in service.doctor"
-        :key="doctor.id"
-        :doctor="doctor"
-      />
-    </div>
-  </div>
-  <div v-else class="w-full py-20 flex items-center justify-center">
-    <Loading />
-  </div>
+	<div v-if="service" class="py-10">
+		<div class="grid lg:grid-cols-4 md:grid-cols-2 lg:px-0 px-10 gap-5">
+			<DoctorCard
+				v-for="doctor in service.doctor"
+				:key="doctor.id"
+				:doctor="doctor" />
+		</div>
+	</div>
+	<div v-else class="w-full py-20 flex items-center justify-center">
+		<Loading />
+	</div>
 </template>
 
 <style scoped></style>

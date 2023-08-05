@@ -7,6 +7,8 @@ const { diagnosisModal, diagnosis, diagnosisFunc, resetModal, isAdd } =
 		"resetForm",
 		"isAdd",
 	]);
+
+const onKey = (e) => {};
 </script>
 
 <template>
@@ -28,32 +30,30 @@ const { diagnosisModal, diagnosis, diagnosisFunc, resetModal, isAdd } =
 					<h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
 						{{ isAdd ? "Yangi xizmat qo'shish" : "Xizmatni yangilash" }}
 					</h3>
-					<form class="grid grid-cols-2 gap-5 mb-5">
+					<form class="mb-5">
 						<div>
 							<label
 								class="block mb-2 text-sm font-medium text-blue-900 dark:text-blue-300 dark:bg-blue-500/20 bg-blue-300 rounded-md text-center p-1">
-								Nomi
+								Tashxislar
 							</label>
-							<input
-								type="text"
-								id="name"
-								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
-								placeholder="Stomotolog"
-								required
-								v-model="diagnosis.name" />
-						</div>
-						<div>
-							<label
-								class="block mb-2 text-sm font-medium text-blue-900 dark:text-blue-300 dark:bg-blue-500/20 bg-blue-300 rounded-md text-center p-1">
-								Narxi
-							</label>
-							<input
-								type="text"
-								id="price"
-								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
-								placeholder="12000"
-								required
-								v-model="diagnosis.price" />
+							<div
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none flex items-center gap-2">
+								<div class="w-auto">
+									<span
+										v-for="diag in diagnosis"
+										class="bg-blue-500 p-1 px-2 gap-2 rounded-lg flex items-center uppercase font-medium">
+										{{ diag.name }}
+										<i class="bx bx-x text-xl cursor-pointer"></i>
+									</span>
+								</div>
+								<input
+									type="text"
+									id="name"
+									class="bg-inherit  outline-none border border-none"
+									placeholder="Stomotolog"
+									required
+									@keyup="onKey" />
+							</div>
 						</div>
 					</form>
 

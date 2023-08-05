@@ -31,6 +31,7 @@ onMounted(async () => {});
           v-for="doctor in data.doctor"
           :key="doctor.id"
           :doctor="doctor"
+          :isAdmin="false"
         />
       </div>
     </div>

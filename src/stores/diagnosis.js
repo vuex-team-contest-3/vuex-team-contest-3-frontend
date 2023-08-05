@@ -1,40 +1,56 @@
 import { reactive, ref, computed } from "vue";
 import { defineStore } from "pinia";
+import { useDiagnosises } from "@/service/diagnosis";
 
 export const useDiagnosis = defineStore("diagnosis", () => {
 	const store = reactive({
-		data: [
-			{ id: 1690788022057, name: "Tish o'g'rig'i" },
-			{ id: 1690788022059, name: "Plomba" },
-		],
-		load: false,
+		data: [],
+		load: true,
 	});
 
-	const GET = () => {};
-
-	const GET_ONE = (id) => {
-		return store.data.filter((i) => i.id == id)[0];
+	const GET = async () => {
+		store.data = (await useDiagnosises.GET()).data;
+		store.load = false;
 	};
 
-	const ADD = (data) => {
-		console.log(data);
+	const GET_ONE = async (id) => {
+		return (await useDiagnosises.GET_ONE(id)).data;
+	};
+
+	const ADD = async (data) => {
+		(await useDiagnosises.CREATE(data)).data;
 		store.data.push(data);
+		return GET();
 	};
 
-	const UPDATE = (id, data) => {
+	const UPDATE = async (id, data) => {
 		for (const i in store.data) {
 			if (store.data[i].id == id) {
-				store.data[i] = data;
+				(await useDiagnosises.UPDATE(id, data)).data;
+				return GET();
 			}
 		}
 	};
 
-	const DELETE = (id) => {
-		store.data = store.data.filter((i) => i.id != id);
+	const DELETE = async (id) => {
+		try {
+			await useDiagnosises.DELETE(id);
+			return GET();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const DIAGNOSIS = computed(() => store.data);
 	const LOAD = computed(() => store.load);
 
-	return { DIAGNOSIS, LOAD, GET, ADD, UPDATE, GET_ONE, DELETE };
+	return {
+		DIAGNOSIS,
+		LOAD,
+		GET,
+		ADD,
+		UPDATE,
+		GET_ONE,
+		DELETE,
+	};
 });
