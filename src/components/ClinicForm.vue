@@ -34,10 +34,13 @@ const onChange = (e) => {
 								for="image"
 								class="flex items-center justify-center h-56 w-56 bg-zinc-950 mx-auto cursor-pointer border rounded-full p-2 border-zinc-700">
 								<img
-									v-if="clinic.image"
+									v-if="clinic.image_name && !clinic.imageURL"
+									:src="`https://nest-clinic.onrender.com/api/image/${clinic.image_name}`"
+									class="object-cover h-full w-full rounded-full" />
+								<img
+									v-else-if="clinic.imageURL"
 									:src="clinic.imageURL"
-									class="object-cover h-full w-full rounded-full"
-									alt="" />
+									class="object-cover h-full w-full rounded-full" />
 								<i v-else class="text-7xl text-white bx bx-upload"></i>
 							</label>
 							<input

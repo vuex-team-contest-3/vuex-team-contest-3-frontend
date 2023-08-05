@@ -42,8 +42,8 @@ export const useDoctor = defineStore("doctor", () => {
 		}
 	};
 
-	const CLINICS = computed(() => store.data);
+	const DOCTORS = computed(() => store.data);
 	const LOAD = computed(() => store.load);
 
-	return { CLINICS, LOAD, GET, ADD, UPDATE, GET_ONE, DELETE };
+	return { DOCTORS, LOAD, GET, ADD, UPDATE, GET_ONE, DELETE };
 });

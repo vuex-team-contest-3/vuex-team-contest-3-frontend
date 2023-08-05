@@ -3,7 +3,17 @@ import { defineStore } from "pinia";
 import { useClients } from "../service/client";
 
 export const useClient = defineStore("client", () => {
-	const store = reactive({ data: [], load: true });
+	const store = reactive({
+		data: [
+			{ first_name: "Ali", last_name: "Abu Tolib" },
+			{ first_name: "Ali", last_name: "Abu Tolib" },
+			{ first_name: "Ali", last_name: "Abu Tolib" },
+			{ first_name: "Ali", last_name: "Abu Tolib" },
+			{ first_name: "Ali", last_name: "Abu Tolib" },
+			{ first_name: "G'ali", last_name: "Abu Tolib" },
+		],
+		load: true,
+	});
 
 	const GET_CLIENT = async () => {
 		store.data = (await useClients.GET()).data;

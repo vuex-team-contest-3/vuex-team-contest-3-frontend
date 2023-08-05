@@ -9,7 +9,7 @@ import { toast } from "vue3-toastify";
 const realRouter = useRouter();
 const updateId = ref(null);
 const deleteId = ref(null);
-let updatedData = reactive({ ...data });
+let updatedData = reactive({ ...data, image: "", imageURL: "" });
 const clinic_store = useClinic();
 
 const changeDelete = () => (deleteId.value = null);
@@ -20,12 +20,14 @@ const resetFormClinic = () => {
 };
 
 const updateClinic = async () => {
-	const updated = {
-		name: updatedData.name,
-		address: updatedData.address,
-		phone: updatedData.phone,
-	};
-	await clinic_store.UPDATE_CLINIC(updateId.value, updated);
+	const formData = new FormData();
+	formData.append("name", updatedData.name);
+	formData.append("address", updatedData.address);
+	formData.append("phone", updatedData.phone);
+	if (updatedData.image) {
+		formData.append("image", updatedData.image);
+	}
+	await clinic_store.UPDATE_CLINIC(updateId.value, formData);
 	toast.success("Klinika muvaffaqiyatli o'zgartirildi", {
 		autoClose: 1000,
 		theme: "dark",

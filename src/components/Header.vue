@@ -69,7 +69,16 @@ onMounted(() => {
 					</div>
 					<div v-else class="w-36"></div>
 				</div>
-				<div v-else class="w-36"></div>
+				<div v-else>
+					<div class="flex items-center gap-8 text-[16px] text-white font-bold">
+						<router-link v-if="user_store.USER.role == 'ADMIN'" to="/admin">
+							<Button name="Admin Panel"></Button>
+						</router-link>
+						<router-link v-else to="/admin/doctor">
+							<Button name="Admin Panel"></Button>
+						</router-link>
+					</div>
+				</div>
 				<div class="lg:hidden reletive">
 					<button
 						@click="toggleMenu"

@@ -2,14 +2,17 @@
 import { onMounted, reactive } from "vue";
 import { useClinic } from "@/stores/clinic";
 import { useClient } from "@/stores/client";
+import { useDoctor } from "@/stores/doctor";
 
 const clinic_store = useClinic();
 const client_store = useClient();
+const doctor_store = useDoctor();
 
 onMounted(async () => {
 	AOS.init();
 	await clinic_store.GET_CLINIC();
 	await client_store.GET_CLIENT();
+	await doctor_store.GET();
 });
 </script>
 
@@ -39,7 +42,7 @@ onMounted(async () => {
 				class="bg-purple-400 h-24 rounded-lg flex items-center justify-between px-5">
 				<div class="block">
 					<h4 class="text-2xl font-bold">Doctors</h4>
-					<h3 class="text-3xl">7</h3>
+					<h3 class="text-3xl">{{ doctor_store.DOCTORS.length }}</h3>
 				</div>
 				<i class="text-6xl bx bxs-capsule"></i>
 			</div>

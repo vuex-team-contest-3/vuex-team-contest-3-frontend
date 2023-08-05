@@ -98,9 +98,7 @@ const deleteClinic = async () => {
 };
 
 const addDiagnosis = () => {};
-onMounted(async () => {
-	diagnosis.value = diagnosis_store.DIAGNOSIS;
-});
+onMounted(async () => {});
 </script>
 
 <template>
@@ -150,12 +148,13 @@ onMounted(async () => {
 					required />
 			</div>
 		</div>
-		<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-			<table class="w-full text-sm text-left text-zinc-400">
+		<div class="relative overflow-x-auto shadow-md rounded-xl sm:rounded-lg">
+			<table class="w-full text-sm text-left text-zinc-400 rounded-xl">
 				<thead class="text-xs uppercase bg-zinc-700 text-zinc-400">
 					<tr>
 						<th scope="col" class="px-6 py-3">Xizmat nomi</th>
 						<th scope="col" class="px-6 py-3">Xizmat tashxislari</th>
+						<th scope="col" class="px-6 py-3">Price</th>
 						<th scope="col" class="px-6 py-3">Action</th>
 					</tr>
 				</thead>
@@ -185,17 +184,27 @@ onMounted(async () => {
 								</span>
 
 								<button
-									@click="() => (diagnosisModal = el.id)"
+									@click="
+										() => {
+											diagnosisModal = el.id;
+											diagnosis = el.diagnosis;
+										}
+									"
 									class="outline-none bg-blue-500 text-white flex items-center justify-center p-1 px-2 rounded-lg">
 									<i class="bx bx-plus text-lg"></i>
 								</button>
 							</div>
 						</td>
+						<th
+							scope="row"
+							class="px-6 py-4 font-medium whitespace-nowrap text-white">
+							{{ el.price }}
+						</th>
 						<td class="px-6 py-4">
 							<div class="flex items-center gap-2">
 								<i
 									@click="() => (deleteId = el.id)"
-									class="bg-red-500 text-white p-1 px-2 rounded-full cursor-pointer bx bx-trash text-xl"></i>
+									class="bg-red-500 text-white p-1 px-2 rounded-full cursor-pointer bx bx-trash text-lg"></i>
 								<i
 									@click="
 										() => {
@@ -203,7 +212,7 @@ onMounted(async () => {
 											serviceUpdateModal = el.id;
 										}
 									"
-									class="bg-green-500 text-white p-1 px-2 rounded-full cursor-pointer bx bx-pencil text-xl"></i>
+									class="bg-green-500 text-white p-1 px-2 rounded-full cursor-pointer bx bx-pencil text-lg"></i>
 							</div>
 						</td>
 					</tr>

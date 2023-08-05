@@ -94,8 +94,8 @@ const router = createRouter({
 				},
 				{
 					path: "/admin/doctor",
-					name: "Doctor Clinic",
-					component: () => import("@/views/Admin/Clinics.vue"),
+					name: "Doctor Queue",
+					component: () => import("@/views/Doctor/Clients.vue"),
 				},
 			],
 		},
