@@ -1,47 +1,46 @@
 <template>
-  <div class="bg-zinc-800 rounded-lg p-7">
-    <img
-      :src="`https://nest-clinic.onrender.com/api/${doctor.image_name}`"
-      onerror="this.src='/doctor.png'"
-      class="object-cover h-[150px] w-[150px] mx-auto rounded-full"
-      alt=""
-    />
-
-    <div class="mt-5">
-      <h3 class="text-center text-4xl font-medium my-3 text-white">
-        {{ doctor.first_name }} <br />
-        {{ doctor.last_name }}
-      </h3>
-
-      <h4 class="text-center text-xl text-gray-400 font-bold">
-        {{ doctor.profession }}
-      </h4>
-
-      <div class="mt-4">
-        <p class="text-center text-gray-600">{{ doctor.experience }}</p>
-        <p class="text-center text-gray-600">{{ doctor.work_time }}</p>
-        <p class="text-center text-gray-600">
-          {{ doctor.work_day.split(",").join(", ") }}
-        </p>
-        <p class="text-center text-gray-600">
-          {{ `Qavat ${doctor.floor}, Xona ${doctor.room}` }}
-        </p>
-      </div>
-
-      <div class="flex justify-center mt-5">
-        <router-link
-          :to="`/doctor/${doctor.id}`"
-          class="bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 rounded-lg transition duration-200"
-        >
-          Batafsil
-        </router-link>
-      </div>
-    </div>
-  </div>
+	<div
+		class="cursor-pointer bg-zinc-800 text-white border border-zinc-600 rounded-lg p-3 space-y-1">
+		<img
+			:src="
+				doctor.image_name
+					? `https://nest-clinic.onrender.com/api/image/${doctor.image_name}`
+					: `../assets/logo.png`
+			"
+			class="mb-5 object-cover h-32 w-32 border border-zinc-600 mx-auto bg-zinc-950 rounded-full"
+			alt="" />
+		<h3 class="flex items-center gap-2 text-sm font-medium">
+			<UserIcon />
+			<span>{{ doctor.first_name }} {{ doctor.last_name }}</span>
+		</h3>
+		<h3 class="flex items-center gap-2 text-sm">
+			<MedicalIcon />
+			<span>{{ doctor.profession }}</span>
+		</h3>
+		<h3 class="flex items-center gap-2 text-sm">
+			<PhoneIcon />
+			<span>{{ doctor.phone }}</span>
+		</h3>
+		<h3 class="flex items-center gap-2 text-sm">
+			<CalendarCheckIcon />
+			<span>{{ doctor.work_day }}</span>
+		</h3>
+		<div v-if="isAdmin" class="w-full flex items-end justify-between pt-5">
+			<span class="text-zinc-400 text-sm">15.02.23</span>
+			<div class="flex items-center gap-2">
+				<i
+					@click="() => (updateId = data.id)"
+					class="text-lg bg-green-500 px-1 bx bx-pencil rounded-lg cursor-pointer"></i>
+				<i
+					@click="() => (deleteId = data.id)"
+					class="text-lg bg-red-500 px-1 bx bx-trash rounded-lg cursor-pointer"></i>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script setup>
-defineProps(["doctor"]);
+defineProps(["doctor", "idAdmin"]);
 </script>
 
 <style lang="scss" scoped></style>

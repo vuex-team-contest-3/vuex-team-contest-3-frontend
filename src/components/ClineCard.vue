@@ -20,19 +20,27 @@ const resetFormClinic = () => {
 };
 
 const updateClinic = async () => {
-	const formData = new FormData();
-	formData.append("name", updatedData.name);
-	formData.append("address", updatedData.address);
-	formData.append("phone", updatedData.phone);
-	if (updatedData.image) {
-		formData.append("image", updatedData.image);
+	try {
+		const formData = new FormData();
+		formData.append("name", updatedData.name);
+		formData.append("address", updatedData.address);
+		formData.append("phone", updatedData.phone);
+		if (updatedData.image) {
+			formData.append("image", updatedData.image);
+		}
+		await clinic_store.UPDATE_CLINIC(updateId.value, formData);
+		toast.success("Klinika muvaffaqiyatli o'zgartirildi", {
+			autoClose: 1000,
+			theme: "dark",
+		});
+		resetFormClinic();
+	} catch (error) {
+		console.log(error);
+		toast.success(`${error.response.data.message}`, {
+			autoClose: 1000,
+			theme: "dark",
+		});
 	}
-	await clinic_store.UPDATE_CLINIC(updateId.value, formData);
-	toast.success("Klinika muvaffaqiyatli o'zgartirildi", {
-		autoClose: 1000,
-		theme: "dark",
-	});
-	resetFormClinic();
 };
 
 const deleteClinic = async () => {
@@ -48,7 +56,7 @@ const deleteClinic = async () => {
 		realRouter.push("/admin/clinics");
 	} catch (error) {
 		console.log(error);
-		toast.error("Xatolik", {
+		toast.success(`${error.response.data.message}`, {
 			autoClose: 1000,
 			theme: "dark",
 		});
