@@ -8,7 +8,7 @@ const clinic_store = useClinic();
 let clinic = ref();
 const clinicMenus = reactive({
 	currentMenu: 0,
-	menus: ["Xizmatlar", "Shifokorlar", "Narxlar"],
+	menus: ["Xizmatlar", "Shifokorlar"],
 });
 const updateAll = async () => {
 	clinic.value = await clinic_store.GET_ONE(id);
