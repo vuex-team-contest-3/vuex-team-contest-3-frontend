@@ -96,7 +96,7 @@ onMounted(() => {
 				<img
 					v-if="data.image_name"
 					:src="`https://nest-clinic.onrender.com/api/image/${data.image_name}`"
-					class="mb-5 h-32 w-32 mx-auto bg-zinc-900 border border-zinc-700 group-hover:border-zinc-600 duration-300 rounded-full" />
+					class="mb-5 h-32 w-32 mx-auto object-cover bg-zinc-900 border border-zinc-700 group-hover:border-zinc-600 duration-300 rounded-full" />
 				<img
 					v-else
 					src="@/assets/logo.png"

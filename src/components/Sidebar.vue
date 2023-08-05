@@ -1,12 +1,16 @@
 <script setup>
 import { menus } from "@/constants/menus";
-import { useMode } from "@/stores/mode";
 import { useUser } from "@/stores/user";
 import { useRouter } from "vue-router";
 
 const user_store = useUser();
 const router = useRouter();
-const mode = useMode();
+
+const exit = () => {
+	localStorage.clear();
+	router.push("/");
+	user_store.REMOVE_USER();
+};
 </script>
 
 <template>
@@ -28,7 +32,7 @@ const mode = useMode();
 				<nav>
 					<router-link
 						v-for="el in menus"
-						class="items-center px-3 py-2 mb-3 text-zinc-700 bg-zinc-100 rounded-lg dark:bg-zinc-800 dark:text-zinc-200"
+						class="items-center px-3 py-2 mb-3 text-zinc-700 bg-zinc-100 rounded-lg dark:bg-zinc-800 hover:bg-zinc-700 dark:text-zinc-200"
 						:class="el.role.includes(user_store.USER.role) ? 'flex' : 'hidden'"
 						:to="el.path">
 						<i class="text-2xl" :class="el.icon"></i>
@@ -38,10 +42,18 @@ const mode = useMode();
 					</router-link>
 					<button
 						@click="router.push('/')"
-						class="flex items-center w-full px-3 py-2 mb-3 text-zinc-700 bg-zinc-100 rounded-lg dark:bg-zinc-800 dark:text-zinc-200">
+						class="flex items-center w-full px-3 py-2 mb-3 text-zinc-700 bg-zinc-100 rounded-lg dark:bg-zinc-800 hover:bg-zinc-700 dark:text-zinc-200">
 						<i class="text-2xl bx bx-left-arrow-alt"></i>
 						<span class="hidden lg:block mx-3 text-md font-medium">
 							Ortga
+						</span>
+					</button>
+					<button
+						@click="exit"
+						class="flex items-center w-full px-3 py-2 mb-3 text-zinc-700 bg-zinc-100 rounded-lg dark:bg-zinc-800 hover:bg-red-900 dark:text-zinc-200">
+						<i class="text-2xl bx bx-exit" style="color: #ffffff"></i>
+						<span class="hidden lg:block mx-3 text-md font-medium">
+							Chiqish
 						</span>
 					</button>
 				</nav>
