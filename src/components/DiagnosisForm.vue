@@ -49,7 +49,7 @@ const onKey = (e) => {};
 								<input
 									type="text"
 									id="name"
-									class="bg-inherit  outline-none border border-none"
+									class="bg-inherit outline-none border border-none"
 									placeholder="Stomotolog"
 									required
 									@keyup="onKey" />

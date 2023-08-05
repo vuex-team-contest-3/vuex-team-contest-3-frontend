@@ -1,3 +1,7 @@
+<script setup>
+defineProps(["doctor", "isAdmin"]);
+</script>
+
 <template>
   <div
     class="cursor-pointer bg-zinc-800 text-white border border-zinc-600 rounded-lg p-3 space-y-1"
@@ -42,9 +46,5 @@
     </div>
   </div>
 </template>
-
-<script setup>
-const props = defineProps(["doctor", "idAdmin"]);
-</script>
 
 <style lang="scss" scoped></style>

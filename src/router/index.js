@@ -93,7 +93,7 @@ const router = createRouter({
 				{
 					path: "/admin/doctor",
 					name: "Doctor Clinic",
-					component: () => import("@/views/Admin/Clinics.vue"),
+					component: () => import("@/views/Doctor/Clients.vue"),
 				},
 			],
 		},

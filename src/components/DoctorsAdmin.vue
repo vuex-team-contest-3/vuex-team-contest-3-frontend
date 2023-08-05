@@ -99,8 +99,8 @@ const deleteClinic = async () => {
 					v-for="el in data.doctor.slice(
 						(page.currentPage - 1) * page.itemsPerPage,
 						(page.currentPage - 1) * page.itemsPerPage + page.itemsPerPage
-					)">
-				</DoctorCard>
+					)"
+					:doctor="el" />
 			</div>
 			<Pagination :page="page" :data="data.doctor" />
 		</div>

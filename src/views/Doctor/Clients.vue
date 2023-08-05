@@ -1,9 +1,20 @@
 <script setup>
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
 import { useClient } from "@/stores/client";
+import { useUser } from "@/stores/user";
+import { useDoctor } from "@/stores/doctor";
 
+const user_store = useUser();
+const doctor_store = useDoctor();
 const client_store = useClient();
 const page = reactive({ currentPage: 1, itemsPerPage: 3 });
+
+const currentDoctor = reactive({ data: {} });
+
+onMounted(async () => {
+	await user_store.GET_USER();
+	currentDoctor.data = await doctor_store.GET_ONE(await user_store.USER.id);
+});
 </script>
 
 <template>
@@ -52,7 +63,7 @@ const page = reactive({ currentPage: 1, itemsPerPage: 3 });
 									</h3>
 									<h3 class="text-red-500 flex items-center gap-2">
 										<span>Jarayonda</span>
-										<i class="bx bx-date text-xl"></i>
+										<i class="animate-spin bx bx-loader-circle text-xl"></i>
 									</h3>
 								</th>
 								<td class="px-6 py-4">
@@ -70,7 +81,7 @@ const page = reactive({ currentPage: 1, itemsPerPage: 3 });
 				<Pagination :page="page" :data="client_store.CLIENTS" />
 			</div>
 			<div
-				class="grid w-64 px-10 py-5 bg-zinc-900 rounded-xl space-y-5 h-[80vh] overflow-y-auto">
+				class="grid w-64 px-10 py-5 bg-zinc-950 rounded-xl space-y-5 h-[80vh] overflow-y-auto">
 				<button
 					v-for="el in 10"
 					class="bg-zinc-800 hover:bg-zinc-900 duration-300 border border-zinc-500 p-5 py-2 rounded-lg text-white font-medium">

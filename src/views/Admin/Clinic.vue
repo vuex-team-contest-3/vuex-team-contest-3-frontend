@@ -7,8 +7,8 @@ const { id } = useRoute().params;
 const clinic_store = useClinic();
 let clinic = ref();
 const clinicMenus = reactive({
-  currentMenu: 0,
-  menus: ["Xizmatlar", "Shifokorlar", "Narxlar"],
+	currentMenu: 0,
+	menus: ["Xizmatlar", "Shifokorlar"],
 });
 
 const updateAll = async () => {

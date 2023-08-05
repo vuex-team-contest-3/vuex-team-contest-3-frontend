@@ -191,7 +191,7 @@ onMounted(async () => {});
 										}
 									"
 									class="outline-none bg-blue-500 text-white flex items-center justify-center p-1 px-2 rounded-lg">
-									<i class="bx bx-plus text-lg"></i>
+									<i class="bx bx-pen text-lg"></i>
 								</button>
 							</div>
 						</td>

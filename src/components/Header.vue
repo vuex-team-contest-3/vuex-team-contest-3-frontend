@@ -41,7 +41,7 @@ onMounted(() => {
 				<div>
 					<a href="/" class="flex items-center">
 						<img src="@/assets/logo.png" class="h-14" alt="" />
-						<span class="text-[24px] w-[100px] text-[#DEDEDE] font-bold">
+						<span class="text-[24px] w-[100px] text-[#DEDEDE] font-bold hidden sm:block">
 							ClineApp
 						</span>
 					</a>
