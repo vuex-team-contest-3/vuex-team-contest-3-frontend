@@ -28,12 +28,9 @@ export const useService = defineStore("service", () => {
 	};
 
 	const UPDATE = async (id, data) => {
-		for (const i in store.data) {
-			if (store.data[i].id == id) {
-				(await useServices.UPDATE(id, data)).data;
-				return GET();
-			}
-		}
+		console.log(id, data);
+		(await useServices.UPDATE(id, data)).data;
+		return (await useServices.GET()).data;
 	};
 
 	const DELETE = async (id) => {

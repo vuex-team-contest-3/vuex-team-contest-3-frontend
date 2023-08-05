@@ -37,13 +37,13 @@ const addNewClinic = async () => {
 		resetFormClinic();
 		toast.success("Klinika muvaffaqiyatli qo'shildi", {
 			autoClose: 1000,
-			theme: "light",
+			theme: "dark",
 		});
 	} catch (error) {
 		console.log(error);
 		toast.success("Formani to'g'ri to'ldiring", {
 			autoClose: 1000,
-			theme: "light",
+			theme: "dark",
 		});
 	}
 };

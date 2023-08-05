@@ -5,11 +5,14 @@ import { useRoute } from "vue-router";
 
 const { id } = useRoute().params;
 const clinic_store = useClinic();
-const clinic = ref();
+let clinic = ref();
 const clinicMenus = reactive({
 	currentMenu: 0,
 	menus: ["Xizmatlar", "Shifokorlar", "Narxlar"],
 });
+const updateAll = async () => {
+	clinic.value = await clinic_store.GET_ONE(id);
+};
 
 onMounted(async () => {
 	clinic.value = await clinic_store.GET_ONE(id);
@@ -55,12 +58,12 @@ onMounted(async () => {
 					</div>
 				</div>
 				<div v-if="clinicMenus.currentMenu == 0" class="text-start mx-auto">
-					<ServicesAdmin :data="clinic" />
+					<ServicesAdmin :data="clinic" :updateAll="updateAll" />
 				</div>
 				<div
 					v-else-if="clinicMenus.currentMenu == 1"
 					class="text-start mx-auto">
-					<DoctorsAdmin :data="clinic" />
+					<DoctorsAdmin :data="clinic" :updateAll="updateAll" />
 				</div>
 			</div>
 		</div>

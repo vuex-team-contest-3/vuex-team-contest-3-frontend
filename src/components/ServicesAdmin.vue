@@ -1,19 +1,36 @@
 <script setup>
+const { data, updateAll } = defineProps(["data", "updateAll"]);
 import { ref, reactive, onMounted } from "vue";
+import { toast } from "vue3-toastify";
+import { useRouter } from "vue-router";
+
 import { useDiagnosis } from "@/stores/diagnosis";
 import { useService } from "@/stores/service";
-const { data } = defineProps(["data"]);
+import { useClinic } from "@/stores/clinic";
 
+const page = reactive({ currentPage: 1, itemsPerPage: 3 });
+
+const router = useRouter();
+
+// STORES
+const clinic_store = useClinic();
+const service_store = useService();
 const diagnosis_store = useDiagnosis();
+
+// MODAL
 const serviceModal = ref(false);
+const serviceUpdateModal = ref(null);
 const diagnosisModal = ref(null);
 const changeDiagnosisModal = () => (diagnosisModal.value = null);
 const changeModal = () => (serviceModal.value = !serviceModal.value);
 
-const service = reactive({
-	name: "",
-	price: "",
-});
+// DELETE
+const deleteId = ref(null);
+const changeDelete = () => (deleteId.value = null);
+
+const service = reactive({ name: "", price: "", clinic_id: data.id });
+
+let updateService = reactive({});
 
 const diagnosis = ref([]);
 
@@ -23,24 +40,90 @@ const resetForm = () => {
 	changeModal();
 };
 
-const addService = () => {};
+const addService = async () => {
+	try {
+		await service_store.ADD(service);
+		resetForm();
+		toast.success("Xizmat qo'shildi", { autoClose: 1000, theme: "dark" });
+		updateAll();
+	} catch (error) {
+		console.log(error);
+		toast.success("Formani to'g'ri to'ldiring", {
+			autoClose: 1000,
+			theme: "dark",
+		});
+	}
+};
 
+const resetServiceForm = () => {
+	serviceUpdateModal.value = null;
+	updateService = {};
+};
+
+const editService = async () => {
+	try {
+		const updatedIdCpy = serviceUpdateModal.value;
+		serviceUpdateModal.value = null;
+		await service_store.UPDATE(updatedIdCpy, { ...updateService });
+		resetServiceForm();
+
+		toast.success("Xizmat o'zgartirildi", { autoClose: 1000, theme: "dark" });
+		updateAll();
+	} catch (error) {
+		console.log(error);
+		toast.success("Formani to'g'ri to'ldiring", {
+			autoClose: 1000,
+			theme: "dark",
+		});
+	}
+};
+
+const deleteClinic = async () => {
+	try {
+		const deletedIdCpy = deleteId.value;
+		changeDelete();
+		await service_store.DELETE(deletedIdCpy);
+		toast.success("Xizmat muvaffaqiyatli o'chirildi", {
+			autoClose: 1000,
+			theme: "dark",
+		});
+		updateAll();
+	} catch (error) {
+		console.log(error);
+		toast.error("Xatolik", {
+			autoClose: 1000,
+			theme: "dark",
+		});
+	}
+};
+
+const addDiagnosis = () => {};
 onMounted(async () => {
 	diagnosis.value = diagnosis_store.DIAGNOSIS;
 });
 </script>
 
 <template>
+	<DeleteModal
+		:isDelete="deleteId"
+		:changeDelete="changeDelete"
+		:deleteFunc="deleteClinic" />
+
 	<ServiceAdminForm
 		:serviceModal="serviceModal"
 		:service="service"
 		:serviceFunc="addService"
 		:resetForm="resetForm"
 		isAdd="1" />
+	<ServiceAdminForm
+		:serviceModal="serviceUpdateModal"
+		:service="updateService"
+		:serviceFunc="editService"
+		:resetForm="resetServiceForm" />
 	<DiagnosisForm
 		:diagnosisModal="diagnosisModal"
 		:diagnosis="diagnosis"
-		:diagnosisFunc="diagnosisFunc"
+		:diagnosisFunc="addDiagnosis"
 		:resetForm="changeDiagnosisModal"
 		isAdd="1" />
 	<div>
@@ -78,7 +161,10 @@ onMounted(async () => {
 				</thead>
 				<tbody>
 					<tr
-						v-for="el in data.service"
+						v-for="el in data.service.slice(
+							(page.currentPage - 1) * page.itemsPerPage,
+							(page.currentPage - 1) * page.itemsPerPage + page.itemsPerPage
+						)"
 						class="border-b bg-zinc-800 border-zinc-700">
 						<th
 							scope="row"
@@ -88,10 +174,15 @@ onMounted(async () => {
 						<td class="px-6 py-4 flex">
 							<div
 								class="flex items-center gap-2 border border-blue-500 pl-2 rounded-lg p-1">
-								<span v-if="el.diagnosis" class="" v-for="diag in el.diagnosis">
-									{{ diag }},
+								<span
+									v-if="el.diagnosis?.length"
+									class="text-sm font-medium px-2 uppercase"
+									v-for="diag in el.diagnosis">
+									{{ diag.name }},
 								</span>
-								<span class="text-sm font-medium px-5">NO DIAGNOSIS</span>
+								<span v-else class="text-sm font-medium px-2">
+									NO DIAGNOSIS
+								</span>
 
 								<button
 									@click="() => (diagnosisModal = el.id)"
@@ -103,14 +194,22 @@ onMounted(async () => {
 						<td class="px-6 py-4">
 							<div class="flex items-center gap-2">
 								<i
+									@click="() => (deleteId = el.id)"
 									class="bg-red-500 text-white p-1 px-2 rounded-full cursor-pointer bx bx-trash text-xl"></i>
 								<i
+									@click="
+										() => {
+											updateService = { ...el };
+											serviceUpdateModal = el.id;
+										}
+									"
 									class="bg-green-500 text-white p-1 px-2 rounded-full cursor-pointer bx bx-pencil text-xl"></i>
 							</div>
 						</td>
 					</tr>
 				</tbody>
 			</table>
+			<Pagination :page="page" :data="data.service" />
 		</div>
 	</div>
 </template>
