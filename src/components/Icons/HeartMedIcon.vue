@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+defineProps(["color"]);
+</script>
 
 <template>
 	<svg
@@ -8,7 +10,7 @@
 		height="20"
 		viewBox="0 0 24 24"
 		stroke-width="1.5"
-		stroke="#9e9e9e"
+		:stroke="color || `#9e9e9e`"
 		fill="none"
 		stroke-linecap="round"
 		stroke-linejoin="round">
